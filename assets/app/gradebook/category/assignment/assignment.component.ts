@@ -7,7 +7,7 @@ import {Assignment} from "./assignment.model";
 })
 export class AssignmentComponent {
 
-    @Input() _assignment: Assignment;
+    @Input() assignment: Assignment;
 
     @Output()
     onRemove: EventEmitter<Assignment> = new EventEmitter();
@@ -15,14 +15,15 @@ export class AssignmentComponent {
     @Output()
     onUpdate: EventEmitter<Assignment> = new EventEmitter();
 
+
     updateEarned(earned: number) {
-        this._assignment.earned = earned;
-        this.onUpdate.emit(this._assignment)
+        this.assignment.earned = earned;
+        this.onUpdate.emit(this.assignment)
     }
 
     updateWorth(worth: number) {
-        this._assignment.worth = worth;
-        this.onUpdate.emit(this._assignment);
+        this.assignment.worth = worth;
+        this.onUpdate.emit(this.assignment);
     }
 
 }
