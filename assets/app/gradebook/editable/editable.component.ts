@@ -56,7 +56,7 @@ export class EditableComponent {
      *  still cause the value to be saved. This behavior is not desired. */
     private _ignoreChanges: boolean = false;
 
-    @Output() onValueChanged = new EventEmitter<string>();
+    @Output() valueChanged = new EventEmitter<string>();
     @Output() onInputRejected = new EventEmitter<any[]>(); // See inputRejectingFunctions.
 
     /** Sets default mode and default value if not defined by input. */
@@ -88,7 +88,7 @@ export class EditableComponent {
         if (arr.length == 0) { // No validation failures, accept the input.
             this.value = newValue;
             this.currentMode = EditMode.plainText;
-            this.onValueChanged.emit(newValue);
+            this.valueChanged.emit(newValue);
         } else if (arr.length > 0) { // There were validation failures, reject the input.
             this.onInputRejected.emit(arr);
         }
@@ -108,4 +108,33 @@ export class EditableComponent {
 
         return properties;
     }
+}
+
+module InputRejectingFunctions {
+    export function min(min: number) {
+        return (input: string) => {
+            if (input === undefined) return false;
+
+            const value = parseFloat(input);
+            return !isNaN(value) && value < min;
+        }
+    }
+
+    export function max(max: number) {
+        return (input: string) => {
+            if (input === undefined) return false;
+
+            const value = parseFloat(input);
+            return !isNaN(value) && value > max;
+        }
+    }
+
+    export function required(input: string) {
+        return input !== undefined && input !== "";
+    }
+
+    export function numeric(input: string) {
+        return input !== undefined && !isNaN(parseFloat(input));
+    }
+
 }
