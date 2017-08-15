@@ -110,7 +110,7 @@ export class EditableComponent {
     }
 }
 
-module InputRejectingFunctions {
+export module InputRejectingFunctions {
     export function min(min: number) {
         return (input: string) => {
             if (input === undefined) return false;
@@ -129,12 +129,24 @@ module InputRejectingFunctions {
         }
     }
 
-    export function required(input: string) {
+    export function nonempty(input: string) {
         return input !== undefined && input !== "";
     }
 
     export function numeric(input: string) {
         return input !== undefined && !isNaN(parseFloat(input));
+    }
+
+    export function pattern(pattern: string) {
+        return (input: string) => {
+            if (pattern === undefined) return input !== undefined;
+
+            let regex: RegExp;
+
+            regex = new RegExp(pattern);
+
+            return regex.test(input);
+        }
     }
 
 }
