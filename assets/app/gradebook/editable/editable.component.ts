@@ -40,7 +40,7 @@ export class EditableComponent {
 
     /** Inputs that do not satisfy any of these functions will be preemptively rejected, and the component will retain
      *  it's current value. */
-    @Input() inputRejectingFunctions: { fn: ((_: string) => boolean), feedback: any }[] = [];
+    @Input() inputRejectingValidators: { fn: ((_: string) => boolean), feedback: any }[] = [];
 
     /** The maximum number of characters the input will allow. */
     @Input() maxLength: number;
@@ -77,8 +77,8 @@ export class EditableComponent {
         var arr: any[] = []; // Will store all validation errors.
 
         // Call all input-rejecting validation functions against the value.
-        if (this.inputRejectingFunctions !== undefined) {
-            for (let validator of this.inputRejectingFunctions) {
+        if (this.inputRejectingValidators !== undefined) {
+            for (let validator of this.inputRejectingValidators) {
                 if (!validator.fn(newValue)) {
                     arr.push(validator.feedback);
                 }
