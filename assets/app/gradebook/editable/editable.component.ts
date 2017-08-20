@@ -110,8 +110,8 @@ export class EditableComponent {
     }
 }
 
-export module InputRejectingFunctions {
-    export function min(min: number) {
+export class InputRejectingFunctions {
+     static min(min: number) {
         return (input: string) => {
             if (input === undefined) return false;
 
@@ -120,7 +120,7 @@ export module InputRejectingFunctions {
         }
     }
 
-    export function max(max: number) {
+    static max(max: number) {
         return (input: string) => {
             if (input === undefined) return false;
 
@@ -129,15 +129,15 @@ export module InputRejectingFunctions {
         }
     }
 
-    export function nonempty(input: string) {
+    static nonempty(input: string) {
         return input !== undefined && input !== "";
     }
 
-    export function numeric(input: string) {
+    static numeric(input: string) {
         return input !== undefined && !isNaN(parseFloat(input));
     }
 
-    export function pattern(pattern: string) {
+    static pattern(pattern: string) {
         return (input: string) => {
             if (pattern === undefined) return input !== undefined;
 
