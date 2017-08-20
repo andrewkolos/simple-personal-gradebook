@@ -6,14 +6,16 @@ import { InputRejectingFunctions } from "../../editable/editable.component";
 @Component({
     selector: 'app-assignment',
     template: ` 
-        <app-editable class="col-xs-6" [maxLength]="20" [(value)]="assignment.name" 
+        
+        <app-editable class="col-6" [maxLength]="20" [(value)]="assignment.name" 
                       [inputRejectingValidators]="nameInputRejectingValidators">
         </app-editable>
-        <app-editable class="col-xs-3" [maxLength]="4" [(value)]="assignment.earned" 
+        <app-editable class="col-3" [maxLength]="4" [(value)]="assignment.earned" 
                       [inputRejectingValidators]="scoreInputRejectingValidators">
         </app-editable>
-        <app-editable class="col-xs-3" [maxLength]="4" [(value)]="assignment.worth"
+        <app-editable class="col-3" [maxLength]="4" [(value)]="assignment.worth"
                       [inputRejectingValidators]="scoreInputRejectingValidators"></app-editable>
+        
     `
 })
 export class AssignmentComponent{

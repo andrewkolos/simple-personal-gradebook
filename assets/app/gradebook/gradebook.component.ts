@@ -6,19 +6,17 @@ import {GradebookService} from "./gradebook.service";
     selector: 'app-gradebook',
     template: `
         <div class="col-9">
-            <div class="row" *ngFor="let category of gradebook.categories">
-                <app-category [category]="category"></app-category>
-            </div>
+            <app-category class="row" *ngFor="let category of gradebook.categories"
+                          [category]="category"></app-category>
         </div>
     `,
-    
+
 })
 export class GradebookComponent {
 
     constructor(private _gradebookService: GradebookService) {
     }
 
-    @Input() gradebook: Gradebook;
-
+    @Input() gradebook: Gradebook = this._gradebookService.getGradebooks()[0];
 
 }

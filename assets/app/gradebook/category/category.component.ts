@@ -5,12 +5,17 @@ import {Category} from "./category.model";
 @Component({
     selector: 'app-category',
     template: `
-        <div class="row" *ngFor="let assignment of category.assignments">
-            <div class="col-xs-6">{{name}}</div>
-            <div class="col-xs-3 offset-xs-2">Worth: </div>
-            <div class="col-xs-2"></div>
-            <br />
-            <app-assignment [assignment]="assignment"></app-assignment>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-5">{{name}}</div>
+                <div class="col-3 offset-2">Worth:</div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <br/>
+        <div class="col-12" *ngFor="let assignment of category.assignments">
+            <app-assignment class="row"
+                            [assignment]="assignment"></app-assignment>
         </div>
     `
 })
