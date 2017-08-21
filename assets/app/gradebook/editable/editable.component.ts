@@ -90,6 +90,7 @@ export class EditableComponent {
             this.currentMode = EditMode.plainText;
             this.valueChanged.emit(newValue);
         } else if (arr.length > 0) { // There were validation failures, reject the input.
+            console.log(arr);
             this.onInputRejected.emit(arr);
         }
     }
@@ -116,7 +117,7 @@ export class InputRejectingFunctions {
             if (input === undefined) return false;
 
             const value = parseFloat(input);
-            return !isNaN(value) && value < min;
+            return !isNaN(value) && value > min;
         }
     }
 
@@ -125,7 +126,7 @@ export class InputRejectingFunctions {
             if (input === undefined) return false;
 
             const value = parseFloat(input);
-            return !isNaN(value) && value > max;
+            return !isNaN(value) && value < max;
         }
     }
 
