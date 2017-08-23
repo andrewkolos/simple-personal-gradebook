@@ -46,9 +46,9 @@ export class AssignmentComponent implements OnInit {
     }
 
     submitData() {
-        if (this.assignmentForm.status === "VALID") {
+        if (this.assignmentForm.status === "VALID" && this.assignmentForm.dirty) {
             const formModel = this.assignmentForm.value;
-
+            console.log("joj changed");
             let saveAssignment: Assignment = new Assignment(this.assignment.id, formModel.name);
 
             if (formModel.earned !== "")
