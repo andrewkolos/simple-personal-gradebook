@@ -8,9 +8,9 @@ import {emptyOrNumericValidator} from "../../../general/custom-validators";
     selector: 'app-assignment',
     template: `
         <form class="col-12 row" [formGroup]="assignmentForm" novalidate>
-            <input (focus)="$event.target.select()" class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
+            <input (focus)="$event.target.select()" (blur)="submitData()" class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
             <div class="input-group col-sm-7 col-md-6 col-lg-3">
-                <input (focus)="$event.target.select()" class="form-control text-right" formControlName="earned"
+                <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control text-right" formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
             <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control" formControlName="worth" id="worthInput">
@@ -48,7 +48,7 @@ export class AssignmentComponent implements OnInit {
     submitData() {
         if (this.assignmentForm.status === "VALID" && this.assignmentForm.dirty) {
             const formModel = this.assignmentForm.value;
-            console.log("joj changed");
+
             let saveAssignment: Assignment = new Assignment(this.assignment.id, formModel.name);
 
             if (formModel.earned !== "")
