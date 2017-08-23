@@ -11,7 +11,7 @@ export class Category {
      * @param {Assignment[]} assignments - The assignments that belong to this category.
      * @param {number} weight - The percentage of the course grade this category is worth.
      */
-    constructor(id: string, public name: string, public assignments: Assignment[], public weight?: number) {
+    constructor(id: string, public name: string, public assignments: Assignment[], public weight: number) {
         this._id = id;
     }
 
