@@ -1,46 +1,64 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Assignment } from "./assignment.model";
-import { InputRejectingFunctions } from "../../editable/editable.component";
+import {Component, Input, OnInit} from '@angular/core';
+import {Assignment} from "./assignment.model";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {emptyOrNumericValidator} from "../../../general/custom-validators";
 
 
 @Component({
     selector: 'app-assignment',
-    template: ` 
-        
-        <app-editable class="col-6" [maxLength]="20" [(value)]="assignment.name" 
-                      [inputRejectingValidators]="nameInputRejectingValidators">
-        </app-editable>
-        <app-editable class="col-3" [maxLength]="4" [(value)]="assignment.earned" 
-                      [inputRejectingValidators]="scoreInputRejectingValidators">
-        </app-editable>
-        <app-editable class="col-3" [maxLength]="4" [(value)]="assignment.worth"
-                      [inputRejectingValidators]="scoreInputRejectingValidators"></app-editable>
-        
+    template: `
+        <form class="col-12 row" [formGroup]="assignmentForm" novalidate>
+            <input (focus)="$event.target.select()" class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
+            <div class="input-group col-sm-7 col-md-6 col-lg-3">
+                <input (focus)="$event.target.select()" class="form-control text-right" formControlName="earned"
+                       id="earnedInput">
+                <span class="input-group-addon">/</span>
+            <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control" formControlName="worth" id="worthInput">
+            </div>
+        </form>
     `
 })
-export class AssignmentComponent{
+export class AssignmentComponent implements OnInit {
 
     @Input() assignment: Assignment;
 
-    @Output()
-    onRemove: EventEmitter<Assignment> = new EventEmitter();
+    assignmentForm: FormGroup;
 
-    @Output()
-    onUpdate: EventEmitter<Assignment> = new EventEmitter();
-
-
-    updateEarned(earned: number) {
-        this.assignment.earned = earned;
-        this.onUpdate.emit(this.assignment)
+    constructor(private fb: FormBuilder) {
+        this.createForm();
     }
 
-    updateWorth(worth: number) {
-        this.assignment.worth = worth;
-        this.onUpdate.emit(this.assignment);
+    createForm() {
+        this.assignmentForm = this.fb.group({
+            name: ['', [Validators.required]],
+            earned: ['', [emptyOrNumericValidator, Validators.maxLength(5)]],
+            worth: ['', [emptyOrNumericValidator, Validators.maxLength(5)]]
+        });
     }
 
-    nameInputRejectingValidators = [{fn: InputRejectingFunctions.nonempty, feedback: "Assignment must have a name."}];
-    scoreInputRejectingValidators = [{fn: InputRejectingFunctions.numeric, feedback: "Must be numeric."},
-        {fn: InputRejectingFunctions.nonempty, feedback: "Cannot be empty."}];
+    // Load values into form.
+    ngOnInit(): void {
+        this.assignmentForm.setValue({
+            name: this.assignment.name,
+            earned: this.assignment.earned,
+            worth: this.assignment.worth
+        });
+    }
+
+    submitData() {
+        if (this.assignmentForm.status === "VALID") {
+            const formModel = this.assignmentForm.value;
+
+            let saveAssignment: Assignment = new Assignment(this.assignment.id, formModel.name);
+
+            if (formModel.earned !== "")
+                saveAssignment.earned = parseFloat(formModel.earned);
+
+            if (formModel.worth !== "")
+                saveAssignment.worth = parseFloat(formModel.worth);
+
+            // make update call to service here
+        }
+    }
 
 }
