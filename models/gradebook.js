@@ -3,7 +3,15 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     name: {type: String, required: true},
-    categories: [{type: Schema.Types.ObjectId, ref: 'Category'}],
+    categories: [{
+        name: {type: String, required: true},
+        weight: {type: String, required: true},
+        assignments: [{
+            name: {type: String, required: true},
+            earned: {type: Number},
+            worth: {type: Number}
+        }]
+    }],
     user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 

@@ -49,13 +49,13 @@ export class AssignmentComponent implements OnInit {
         if (this.assignmentForm.status === "VALID" && this.assignmentForm.dirty) {
             const formModel = this.assignmentForm.value;
 
-            let saveAssignment: Assignment = new Assignment(this.assignment.id, formModel.name);
+            let updatedAssignment: Assignment = new Assignment(formModel.name);
 
             if (formModel.earned !== "")
-                saveAssignment.earned = parseFloat(formModel.earned);
+                updatedAssignment.earned = parseFloat(formModel.earned);
 
             if (formModel.worth !== "")
-                saveAssignment.worth = parseFloat(formModel.worth);
+                updatedAssignment.worth = parseFloat(formModel.worth);
 
             // make update call to service here
         }
