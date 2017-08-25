@@ -8,6 +8,7 @@ import {EditableComponent} from "./gradebook/editable/editable.component";
 import {CategoryComponent} from "./gradebook/category/category.component";
 import {GradebookComponent} from "./gradebook/gradebook.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CategoryFooterComponent} from "./gradebook/category/category-footer.component";
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         AutofocusDirective,
         EditableComponent,
         CategoryComponent,
+        CategoryFooterComponent,
         GradebookComponent
     ],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule],

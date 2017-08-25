@@ -27,6 +27,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
             <app-assignment 
                             [assignment]="assignment"></app-assignment>
         </div>
+        
+        <app-category-footer (assignmentCreated)="category.assignments.push($event)"></app-category-footer>
     `
 })
 export class CategoryComponent implements OnInit {
