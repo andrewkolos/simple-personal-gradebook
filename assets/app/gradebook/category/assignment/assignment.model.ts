@@ -8,7 +8,7 @@ export class Assignment {
      * @param {number} earned - The number of points/marks earned by the student for this assignment.
      * @param {number} worth - The number of points/marks this assignment is worth.
      */
-    constructor(id: string, public name: string, public earned?: number, public worth?: number) {
+    constructor(public name: string, public earned?: number, public worth?: number, id?: string) {
         this._id = id;
     }
 

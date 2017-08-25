@@ -11,7 +11,7 @@ export class Gradebook {
      * @param {string} name - The name of this gradebook (i.e. course).
      * @param {Category[]} categories - The categories that belong to this gradebook.
      */
-    constructor(id: string, public name: string, public categories: Category[]) {
+    constructor(public name: string, public categories: Category[], id?: string) {
         this._id = id;
     }
 
