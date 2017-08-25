@@ -24,7 +24,7 @@ export class GradebookService {
         var assignment3 = new Assignment( "assignmentName3", 100, 100, "assignmentID3");
         var assignment4 = new Assignment( "assignmentName4", 90, 90, "assignmentID4");
 
-        var category1 = new Category("categoryName1", [assignment1, assignment2], 50, "categoryID1");
+        var category1 = new Category("categoryName", [assignment1, assignment2], 50, "categoryID1");
         var category2 = new Category("categoryName2", [assignment3, assignment4], 50, "categoryID2");
 
 
