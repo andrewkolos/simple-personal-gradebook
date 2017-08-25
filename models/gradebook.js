@@ -5,7 +5,7 @@ var schema = new Schema({
     name: {type: String, required: true},
     categories: [{
         name: {type: String, required: true},
-        weight: {type: String, required: true},
+        weight: {type: Number},
         assignments: [{
             name: {type: String, required: true},
             earned: {type: Number},
