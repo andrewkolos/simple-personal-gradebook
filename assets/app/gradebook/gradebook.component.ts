@@ -5,9 +5,9 @@ import {GradebookService} from "./gradebook.service";
 @Component({
     selector: 'app-gradebook',
     template: `
-        <div class="col-9">
-            <app-category class="row" *ngFor="let category of gradebook.categories"
-                          [category]="category"></app-category>
+        <div class="col-9" *ngFor="let category of gradebook.categories">
+            <app-category [category]="category"></app-category>
+            <br>
         </div>
     `,
 

@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 @Component({
     selector: 'app-category',
     template: `
-        <form class="col-12 row" [formGroup]="categoryForm">
+        <form class="row" [formGroup]="categoryForm">
             <div class="col-sm-5 col-md-5 pl-0">
                 <input (focus)="$event.target.select()" class="form-control" (blur)="submitData()"
                        formControlName="name" id="nameInput">
@@ -21,9 +21,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
             </div>
         </form>
 
-        <br/>
-        <div class="col-12" *ngFor="let assignment of category.assignments">
-            <app-assignment class="row"
+        <br>
+        
+        <div  *ngFor="let assignment of category.assignments">
+            <app-assignment 
                             [assignment]="assignment"></app-assignment>
         </div>
     `

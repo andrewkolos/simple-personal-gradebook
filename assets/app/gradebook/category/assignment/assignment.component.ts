@@ -7,7 +7,7 @@ import {emptyOrNumericValidator} from "../../../general/custom-validators";
 @Component({
     selector: 'app-assignment',
     template: `
-        <form class="col-12 row" [formGroup]="assignmentForm" novalidate>
+        <form class="row" [formGroup]="assignmentForm" novalidate>
             <input (focus)="$event.target.select()" (blur)="submitData()" class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
             <div class="input-group col-sm-7 col-md-6 col-lg-3">
                 <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control text-right" formControlName="earned"
