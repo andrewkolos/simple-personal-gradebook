@@ -46,6 +46,7 @@ export class AssignmentComponent implements OnInit {
     }
 
     submitData() {
+
         if (this.assignmentForm.status === "VALID" && this.assignmentForm.dirty) {
             const formModel = this.assignmentForm.value;
 
@@ -57,7 +58,8 @@ export class AssignmentComponent implements OnInit {
             if (formModel.worth !== "")
                 updatedAssignment.worth = parseFloat(formModel.worth);
 
-            // make update call to service here
+            this.assignment = updatedAssignment;
+            this.assignmentForm.markAsPristine();
         }
     }
 
