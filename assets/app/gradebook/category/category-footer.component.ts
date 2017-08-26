@@ -54,6 +54,7 @@ export class CategoryFooterComponent {
 
     handleBlur(refocusTarget?) {
         this.elementsFocused -= 1;
+        console.log(this.assignmentForm.status + " " + this.elementsFocused);
 
         if (this.assignmentForm.status === "VALID" && this.elementsFocused == 0) { // create assignment
 
@@ -69,7 +70,13 @@ export class CategoryFooterComponent {
 
             this.assignmentCreated.emit(assignment);
 
-            this.assignmentForm.reset();
+            // Reset form. reset() isn't used as it causes the custom validator to not be called for some reason.
+            this.assignmentForm.markAsPristine();
+            this.assignmentForm.markAsUntouched();
+            for (let name in this.assignmentForm.controls)
+                this.assignmentForm.controls[name].setValue('');
+
+            this.assignmentForm.updateValueAndValidity();
 
             if (refocusTarget)
                 refocusTarget.focus();
