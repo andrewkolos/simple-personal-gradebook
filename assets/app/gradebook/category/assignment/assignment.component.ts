@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Assignment} from "./assignment.model";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {emptyOrNumericValidator} from "../../../general/custom-validators";
@@ -21,6 +21,8 @@ import {emptyOrNumericValidator} from "../../../general/custom-validators";
 export class AssignmentComponent implements OnInit {
 
     @Input() assignment: Assignment;
+
+    @Output() change = new EventEmitter<Assignment>();
 
     assignmentForm: FormGroup;
 
@@ -60,6 +62,7 @@ export class AssignmentComponent implements OnInit {
 
             this.assignment = updatedAssignment;
             this.assignmentForm.markAsPristine();
+            this.change.emit(this.assignment);
         }
     }
 
