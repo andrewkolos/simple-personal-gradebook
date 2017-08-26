@@ -19,13 +19,13 @@ export class GradebookService {
     }
 
     constructor() {
-        var assignment1 = new Assignment( "assignmentName1", 50, 100, "assignmentID1");
-        var assignment2 = new Assignment( "assignmentName2", 75, 80, "assignmentID2");
-        var assignment3 = new Assignment( "assignmentName3", 100, 100, "assignmentID3");
-        var assignment4 = new Assignment( "assignmentName4", 90, 90, "assignmentID4");
+        var assignment1 = new Assignment( "assignmentName1", 50, 100);
+        var assignment2 = new Assignment( "assignmentName2", 75, 80);
+        var assignment3 = new Assignment( "assignmentName3", 100, 100);
+        var assignment4 = new Assignment( "assignmentName4", 90, 90);
 
-        var category1 = new Category("categoryName", [assignment1, assignment2], 50, "categoryID1");
-        var category2 = new Category("categoryName2", [assignment3, assignment4], 50, "categoryID2");
+        var category1 = new Category("categoryName", [assignment1, assignment2], 50);
+        var category2 = new Category("categoryName2", [assignment3, assignment4], 50);
 
 
         var gb = new Gradebook("gradebook name", [category1, category2], "gradebookID1");
