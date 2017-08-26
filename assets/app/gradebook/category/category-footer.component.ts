@@ -9,7 +9,8 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
     template: `
         <form class="row" [formGroup]="assignmentForm" novalidate>
             <input #nameInput (focus)="inputSelected($event)" (blur)="inputBlurred()"
-                   class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
+                   class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput"
+                   placeholder="New assignment">
             <div class="input-group col-sm-7 col-md-6 col-lg-3">
                 <input (focus)="inputSelected($event)" (blur)="inputBlurred()" class="form-control text-right"
                        formControlName="earned"
