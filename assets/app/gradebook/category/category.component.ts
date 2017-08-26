@@ -36,6 +36,8 @@ export class CategoryComponent implements OnInit {
 
     @Input() category: Category;
 
+    @Output() change = new EventEmitter<Category>();
+
     categoryForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
         weight: new FormControl('', [Validators.max(100), Validators.min(0)]),
