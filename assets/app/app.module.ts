@@ -9,6 +9,7 @@ import {CategoryComponent} from "./gradebook/category/category.component";
 import {GradebookComponent} from "./gradebook/gradebook.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CategoryFooterComponent} from "./gradebook/category/category-footer.component";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,7 @@ import {CategoryFooterComponent} from "./gradebook/category/category-footer.comp
         CategoryFooterComponent,
         GradebookComponent
     ],
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule],
     bootstrap: [AppComponent]
 })
 export class AppModule {
