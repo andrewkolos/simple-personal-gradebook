@@ -10,6 +10,11 @@ import {GradebookComponent} from "./gradebook/gradebook.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CategoryFooterComponent} from "./gradebook/category/category-footer.component";
 import {HttpModule} from "@angular/http";
+import {GradebookCardComponent} from "./gradebook-list/gradebook-card/gradebook-card.component";
+import {GradebookListComponent} from "./gradebook-list/gradebook-list.component";
+import {HeaderComponent} from "./header.component";
+import {AuthenticationComponent} from "./auth/authentication.component";
+import {routing} from "./app.routing";
 
 @NgModule({
     declarations: [
@@ -19,9 +24,13 @@ import {HttpModule} from "@angular/http";
         EditableComponent,
         CategoryComponent,
         CategoryFooterComponent,
-        GradebookComponent
+        GradebookComponent,
+        GradebookCardComponent,
+        GradebookListComponent,
+        HeaderComponent,
+        AuthenticationComponent
     ],
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
     bootstrap: [AppComponent]
 })
 export class AppModule {
