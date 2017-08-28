@@ -15,6 +15,9 @@ import {GradebookListComponent} from "./gradebook-list/gradebook-list.component"
 import {HeaderComponent} from "./header.component";
 import {AuthenticationComponent} from "./auth/authentication.component";
 import {routing} from "./app.routing";
+import {SigninComponent} from "./auth/signin.component";
+import {SignupComponent} from "./auth/signup.component";
+import {LogoutComponent} from "./auth/logout.component";
 
 @NgModule({
     declarations: [
@@ -28,7 +31,10 @@ import {routing} from "./app.routing";
         GradebookCardComponent,
         GradebookListComponent,
         HeaderComponent,
-        AuthenticationComponent
+        AuthenticationComponent,
+        SigninComponent,
+        SignupComponent,
+        LogoutComponent
     ],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
     bootstrap: [AppComponent]
