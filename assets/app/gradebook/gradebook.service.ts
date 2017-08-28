@@ -41,6 +41,7 @@ export class GradebookService {
                 for (let gradebook of gradebooks) {
                     transformedGradebooks.push(new Gradebook(gradebook.name, gradebook.categories,))
                 }
+                this._gradebooks = transformedGradebooks;
                 return transformedGradebooks;
             })
             .catch((error: Response) => Observable.throw(error.json()));

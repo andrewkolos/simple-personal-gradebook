@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
                 });
             }
             res.status(200).json({
-                message: 'Gradebooks sucessfully retrieved',
+                message: 'Gradebooks successfully retrieved',
                 obj: gradebooks
             });
         });

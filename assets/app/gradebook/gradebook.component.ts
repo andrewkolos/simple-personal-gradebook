@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Gradebook} from "./gradebook.model";
 import {GradebookService} from "./gradebook.service";
 
@@ -12,11 +12,23 @@ import {GradebookService} from "./gradebook.service";
     `,
 
 })
-export class GradebookComponent {
+export class GradebookComponent implements OnInit {
+    @Input() gradebook: Gradebook;
+
+    ngOnInit(): void {
+        this._gradebookService.getGradebooks()
+            .subscribe(
+                (gradebooks: Gradebook[]) => {
+                    this.gradebook = gradebooks[0];
+                }
+            );
+    }
 
     constructor(private _gradebookService: GradebookService) {
     }
 
-    @Input() gradebook: Gradebook = this._gradebookService.getGradebooks()[0];
+
+
+
 
 }
