@@ -11,7 +11,7 @@ import {Component} from "@angular/core";
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li routerLinkActive="active" class="nav-item">
-                        <a [routerLink]="['/gradebookList']" class="nav-link" href="#">My Gradebooks</a>
+                        <a [routerLink]="['/gradebook-list']" class="nav-link" href="#">My Gradebooks</a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
                         <a [routerLink]="['/auth']" class="nav-link" href="#">Authentication</a>
