@@ -39,7 +39,7 @@ export class GradebookService {
                 const gradebooks = response.json().obj;
                 let transformedGradebooks: Gradebook[] = [];
                 for (let gradebook of gradebooks) {
-                    transformedGradebooks.push(new Gradebook(gradebook.name, gradebook.categories,))
+                    transformedGradebooks.push(new Gradebook(gradebook.name, gradebook.categories, gradebook._id));
                 }
                 this._gradebooks = transformedGradebooks;
                 return transformedGradebooks;
