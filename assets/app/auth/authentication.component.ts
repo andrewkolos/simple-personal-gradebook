@@ -18,7 +18,7 @@ import {Component} from "@angular/core";
                 </ul>
             </nav>
         </header>
-        <div class="row spacing">
+        <div>
             <router-outlet></router-outlet>
         </div>
     `
