@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Gradebook} from "./gradebook.model";
 import {GradebookService} from "./gradebook.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-gradebook',
@@ -16,19 +17,21 @@ export class GradebookComponent implements OnInit {
     @Input() gradebook: Gradebook;
 
     ngOnInit(): void {
-        this._gradebookService.getGradebooks()
+        var id;
+        this._route.params.subscribe(params => {
+            id = params['id'];
+        });
+
+        this._gradebookService.getGradebookById(id)
             .subscribe(
-                (gradebooks: Gradebook[]) => {
-                    this.gradebook = gradebooks[0];
+                (gradebook: Gradebook) => {
+                    this.gradebook = gradebook;
                 }
             );
     }
 
-    constructor(private _gradebookService: GradebookService) {
+    constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute) {
     }
-
-
-
 
 
 }

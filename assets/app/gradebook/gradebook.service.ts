@@ -46,4 +46,15 @@ export class GradebookService {
             })
             .catch((error: Response) => Observable.throw(error.json()));
     }
+
+    getGradebookById(id: string) {
+        return this.http.get('http://localhost:3000/gradebook/' + id)
+            .map(response => {
+                const gradebook = response.json().obj;
+                let transformedGradebook = new Gradebook(gradebook.name, gradebook.categories, gradebook._id);
+                return transformedGradebook;
+            })
+            .catch((error: Response) => Observable.throw("Error in gradebook service"));
+    }
+
 }
