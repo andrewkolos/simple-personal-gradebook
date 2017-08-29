@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit {
     ngOnInit(): void {
         this.categoryForm.setValue({
             name: this.category.name,
-            weight: this.category.weight
+            weight: this.category.weight * 100
         })
     }
 
