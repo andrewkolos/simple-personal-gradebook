@@ -2,10 +2,12 @@ import {RouterModule, Routes} from "@angular/router";
 import {GradebookListComponent} from "./gradebook-list/gradebook-list.component";
 import {AuthenticationComponent} from "./auth/authentication.component";
 import {AUTH_ROUTES} from "./auth/auth.routes";
+import {GradebookComponent} from "./gradebook/gradebook.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/gradebook-list', pathMatch: 'full' },
     { path: 'gradebook-list', component: GradebookListComponent },
+    { path: 'gradebook/:id', component: GradebookComponent },
     { path: 'auth', component: AuthenticationComponent, children: AUTH_ROUTES }
 ];
 

@@ -6,7 +6,7 @@ import {Gradebook} from "../../gradebook/gradebook.model";
     template: `
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"><a>{{gradebook.name}}</a></h4>
+                <h4 class="card-title"><a [routerLink]="['/gradebook', gradebook.id]">{{gradebook.name}}</a></h4>
 
                 <p class="card-text">Hello, I am some placeholder text.</p>
                 <div class="dropdown">
