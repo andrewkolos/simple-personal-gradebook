@@ -10,10 +10,10 @@ import {Component} from "@angular/core";
                         <a class="nav-link active" id="signup-tab" data-toggle="tab" aria-controls="signup" aria-expended="true" [routerLink]="['signup']">Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="signup-tab" data-toggle="tab" aria-controls="signin" aria-expended="true" [routerLink]="['signin']">Signin</a>
+                        <a class="nav-link" id="signin-tab" data-toggle="tab" aria-controls="signin" aria-expended="true" [routerLink]="['signin']">Signin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="signup-tab" data-toggle="tab" aria-controls="logout" aria-expended="true" [routerLink]="['logout']">Logout</a>
+                        <a class="nav-link" id="logout-tab" data-toggle="tab" aria-controls="logout" aria-expended="true" [routerLink]="['logout']">Logout</a>
                     </li>
                 </ul>
             </nav>
