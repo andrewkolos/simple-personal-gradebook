@@ -91,7 +91,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-    Message.findById(req.params.id, function (err, gradebook) {
+    Gradebook.findById(req.params.id, function (err, gradebook) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
