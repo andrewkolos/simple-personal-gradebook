@@ -1,0 +1,1 @@
+export const GRADEBOOK_NAME_PATTERN = "([a-zA-Z0-9\\(\\)\\[\\]]| (?! )){0,29}[a-zA-Z0-9\\(\\)\\[\\]]";

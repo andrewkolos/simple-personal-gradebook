@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Gradebook} from "../gradebook/gradebook.model";
 import {GradebookService} from "../gradebook/gradebook.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {GRADEBOOK_NAME_PATTERN} from "../general/patterns";
 
 @Component({
     selector: 'app-gradebook-list',
@@ -30,7 +31,7 @@ export class GradebookListComponent implements OnInit {
 
     ngOnInit() {
         this.addGradebookForm = new FormGroup({
-            name: new FormControl(null, Validators.required)
+            name: new FormControl(null, [Validators.required, Validators.pattern(GRADEBOOK_NAME_PATTERN)])
         });
 
         this._gradebookService.getGradebooks().subscribe(

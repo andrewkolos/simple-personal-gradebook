@@ -1,6 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Gradebook} from "../../gradebook/gradebook.model";
 import {GradebookService} from "../../gradebook/gradebook.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
 
 @Component({
     selector: 'app-gradebook-card',
@@ -28,13 +30,12 @@ import {GradebookService} from "../../gradebook/gradebook.service";
             </div>
         </div>
 
-
         <!-- modals -->
         <div class="modal fade" [attr.id]="uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'"
              tabindex="-1" role="dialog"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <form class="modal-content" [formGroup]="renameGradebookForm" (ngSubmit)="updateName()">
                     <div class="modal-header">
                         <h5 class="modal-title">Change gradebook name</h5>
                         <button type="button" class="close" data-dismiss="modal">
@@ -42,16 +43,15 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input #nameInput class="form-control" (click)="$event.target.select()"
-                               [value]="gradebook.name">
+                        <input class="form-control" (click)="$event.target.select()" formControlName="name">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                (click)="updateName(nameInput.value)">Save Changes
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="button" type="submit" data-dismiss="modal"
+                                [disabled]="!renameGradebookForm.valid">Save Changes
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -79,17 +79,25 @@ import {GradebookService} from "../../gradebook/gradebook.service";
         </div>
     `
 })
-export class GradebookCardComponent {
+export class GradebookCardComponent implements OnInit {
 
     @Input() gradebook: Gradebook;
+
+    renameGradebookForm: FormGroup;
 
     randomString: string = Math.random().toString(36).substring(8);
 
     constructor(private _gradebookService: GradebookService) {
     }
 
-    updateName(name: string) {
-        this.gradebook.name = name;
+    ngOnInit() {
+        this.renameGradebookForm = new FormGroup({
+            name: new FormControl(this.gradebook.name, [Validators.required, Validators.pattern(GRADEBOOK_NAME_PATTERN)])
+        });
+    }
+
+    updateName() {
+        this.gradebook.name = this.renameGradebookForm.value.name;
         this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
     }
 
