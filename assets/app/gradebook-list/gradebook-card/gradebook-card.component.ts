@@ -16,10 +16,10 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                     More actions
                 </button>
                 <div class="dropdown-menu">
-                    <button class="dropdown-item" data-toggle="modal" data-target="#changeNameModal">Change name
+                    <button class="dropdown-item" data-toggle="modal" [attr.data-target]="'#'+ stripSpaces(gradebook.name) + 'changeNameModal'">Change name
                     </button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteModal">Delete
+                    <button class="dropdown-item text-danger" data-toggle="modal" [attr.data-target]="'#'+ stripSpaces(gradebook.name) + 'deleteModal'">Delete
                     </button>
                 </div>
             </div>
@@ -27,13 +27,13 @@ import {GradebookService} from "../../gradebook/gradebook.service";
 
 
         <!-- modals -->
-        <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog" aria-labelledby="changeNameModalLabel"
+        <div class="modal fade" [attr.id]="stripSpaces(gradebook.name) + 'changeNameModal'" tabindex="-1" role="dialog" 
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="changeNameModalLabel">Change gradebook name</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title">Change gradebook name</h5>
+                        <button type="button" class="close" data-dismiss="modal">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -51,11 +51,11 @@ import {GradebookService} from "../../gradebook/gradebook.service";
             </div>
         </div>
 
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal fade" [attr.id]="stripSpaces(gradebook.name) + 'deleteModal'" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete gradebook</h5>
+                        <h5 class="modal-title" >Delete gradebook</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -88,5 +88,9 @@ export class GradebookCardComponent {
 
     deleteGradebook() {
         this._gradebookService.deleteGradebook(this.gradebook).subscribe(result => console.log(result));
+    }
+
+    stripSpaces(text: string): string {
+        return text.replace(/ /g, "");
     }
 }
