@@ -5,27 +5,30 @@ import {GradebookService} from "../../gradebook/gradebook.service";
 @Component({
     selector: 'app-gradebook-card',
     template: `
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title"><a [routerLink]="['/gradebook', gradebook.id]">{{gradebook.name}}</a></h4>
 
-                <p class="card-text">Hello, I am some placeholder text.</p>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="moreActionsDropdown"
-                            data-toggle="dropdown">
-                        More actions
+        <div class="card-body">
+            <h4 class="card-title"><a [routerLink]="['/gradebook', gradebook.id]">{{gradebook.name}}</a></h4>
+
+            <p class="card-text">Hello, I am some placeholder text.</p>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="moreActionsDropdown"
+                        data-toggle="dropdown">
+                    More actions
+                </button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" data-toggle="modal" data-target="#changeNameModal">Change name
                     </button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" data-toggle="modal" data-target="#changeNameModal">Change name</button>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    </div>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteModal">Delete
+                    </button>
                 </div>
             </div>
         </div>
-        
+
+
         <!-- modals -->
-        <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog" aria-labelledby="changeNameModalLabel" aria-hidden="true">
+        <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog" aria-labelledby="changeNameModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -35,16 +38,19 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input #nameInput class="form-control" (click)="$event.target.select()" [value]="gradebook.name">
+                        <input #nameInput class="form-control" (click)="$event.target.select()"
+                               [value]="gradebook.name">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateName(nameInput.value)">Save Changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                (click)="updateName(nameInput.value)">Save Changes
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -59,7 +65,9 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteGradebook()">Save Changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteGradebook()">
+                            Save Changes
+                        </button>
                     </div>
                 </div>
             </div>
@@ -70,7 +78,8 @@ export class GradebookCardComponent {
 
     @Input() gradebook: Gradebook;
 
-    constructor(private _gradebookService: GradebookService) {}
+    constructor(private _gradebookService: GradebookService) {
+    }
 
     updateName(name: string) {
         this.gradebook.name = name;

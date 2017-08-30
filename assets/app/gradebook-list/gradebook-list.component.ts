@@ -6,8 +6,7 @@ import {GradebookService} from "../gradebook/gradebook.service";
     selector: 'app-gradebook-list',
     template: `
         <div class="card-deck">
-            <!-- May need to add card class and remove it from gradebook card component -->
-            <app-gradebook-card *ngFor="let gradebook of gradebooks" [gradebook]="gradebook"></app-gradebook-card>
+            <app-gradebook-card class="card" *ngFor="let gradebook of gradebooks" [gradebook]="gradebook"></app-gradebook-card>
         </div>
     `
 })
