@@ -16,10 +16,13 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                     More actions
                 </button>
                 <div class="dropdown-menu">
-                    <button class="dropdown-item" data-toggle="modal" [attr.data-target]="'#'+ stripSpaces(gradebook.name) + 'changeNameModal'">Change name
+                    <button class="dropdown-item" data-toggle="modal"
+                            [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
+                        Change name
                     </button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item text-danger" data-toggle="modal" [attr.data-target]="'#'+ stripSpaces(gradebook.name) + 'deleteModal'">Delete
+                    <button class="dropdown-item text-danger" data-toggle="modal"
+                            [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
                     </button>
                 </div>
             </div>
@@ -27,7 +30,8 @@ import {GradebookService} from "../../gradebook/gradebook.service";
 
 
         <!-- modals -->
-        <div class="modal fade" [attr.id]="stripSpaces(gradebook.name) + 'changeNameModal'" tabindex="-1" role="dialog" 
+        <div class="modal fade" [attr.id]="uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'"
+             tabindex="-1" role="dialog"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -42,7 +46,7 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                                [value]="gradebook.name">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
                                 (click)="updateName(nameInput.value)">Save Changes
                         </button>
@@ -51,21 +55,24 @@ import {GradebookService} from "../../gradebook/gradebook.service";
             </div>
         </div>
 
-        <div class="modal fade" [attr.id]="stripSpaces(gradebook.name) + 'deleteModal'" tabindex="-1" role="dialog">
+        <div class="modal fade" [attr.id]="uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'" tabindex="-1"
+             role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" >Delete gradebook</h5>
+                        <h5 class="modal-title">Delete gradebook</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete the {{gradebook.name}} gradebook? This cannot be undone.</p>
+                        <p>Are you sure you want to delete the <strong>{{gradebook.name}}</strong> gradebook? This cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGradebook()">Delete</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGradebook()">
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
@@ -75,6 +82,8 @@ import {GradebookService} from "../../gradebook/gradebook.service";
 export class GradebookCardComponent {
 
     @Input() gradebook: Gradebook;
+
+    randomString: string = Math.random().toString(36).substring(8);
 
     constructor(private _gradebookService: GradebookService) {
     }
@@ -88,7 +97,15 @@ export class GradebookCardComponent {
         this._gradebookService.deleteGradebook(this.gradebook).subscribe(result => console.log(result));
     }
 
-    stripSpaces(text: string): string {
-        return text.replace(/ /g, "");
+    /**
+     * Removes all non-alphanumeric characters from a string and additionally appends a short, (sufficiently) random
+     * string to it. Returns the generated string.
+     * This function is used to generate unique IDs for modals.
+     * @param {string} text
+     * @returns {string}
+     */
+    uniqueAndIdAttrFriendlyName(text: string): string {
+        return text.replace(/[^0-9a-zA-Z]/gi, "")
+            + "-" + this.randomString + "-";
     }
 }
