@@ -26,7 +26,16 @@ export class GradebookService {
     }
 
     addGradebook(gradebook: Gradebook) {
-        this._gradebooks.push(gradebook);
+        const body = JSON.stringify(gradebook);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post('http://localhost:3000/gradebook', body, {headers: headers})
+            .map(response => {
+                const result = response.json();
+                const gradebook = new Gradebook(result.obj.name, result.obj.categories, result.obj._id);
+                this._gradebooks.push(gradebook);
+                return gradebook;
+            })
+            .catch((error: Response) => Observable.throw(error.json()));
     }
 
     deleteGradebook(gradebook: Gradebook) {
