@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
     selector: 'app-gradebook',
     template: `
         <div class="col-9" *ngFor="let category of gradebook.categories">
-            <app-category [category]="category"></app-category>
+            <app-category [category]="category" (change)="submitData()"></app-category>
             <br>
         </div>
     `,
@@ -33,5 +33,7 @@ export class GradebookComponent implements OnInit {
     constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute) {
     }
 
-
+    submitData() {
+        this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
+    }
 }

@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Category} from "./category.model";
-import {InputRejectingFunctions} from "../editable/editable.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -24,15 +23,13 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
         <br>
         
         <div  *ngFor="let assignment of category.assignments">
-            <app-assignment 
-                            [assignment]="assignment"></app-assignment>
+            <app-assignment [assignment]="assignment" (change)="change.emit(category)"></app-assignment>
         </div>
         
-        <app-category-footer (assignmentCreated)="category.assignments.push($event)"></app-category-footer>
+        <app-category-footer (assignmentCreated)="category.assignments.push($event); change.emit(category)"></app-category-footer>
     `
 })
 export class CategoryComponent implements OnInit {
-
 
     @Input() category: Category;
 
@@ -51,6 +48,14 @@ export class CategoryComponent implements OnInit {
     }
 
     submitData() {
+        if (this.categoryForm.status === "VALID" && this.categoryForm.dirty) {
+            const formModel = this.categoryForm.value;
 
+            this.category.name = formModel.name;
+            this.category.weight = parseFloat(formModel.weight) / 100;
+
+            this.categoryForm.markAsPristine();
+            this.change.emit(this.category);
+        }
     }
 }

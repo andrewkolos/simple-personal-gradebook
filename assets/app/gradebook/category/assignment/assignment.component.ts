@@ -52,15 +52,10 @@ export class AssignmentComponent implements OnInit {
         if (this.assignmentForm.status === "VALID" && this.assignmentForm.dirty) {
             const formModel = this.assignmentForm.value;
 
-            let updatedAssignment: Assignment = new Assignment(formModel.name);
+            this.assignment.name = formModel.name;
+            this.assignment.earned = formModel.earned === "" ? null : parseFloat(formModel.earned);
+            this.assignment.worth = formModel.worth === "" ? null: parseFloat(formModel.worth);
 
-            if (formModel.earned !== "")
-                updatedAssignment.earned = parseFloat(formModel.earned);
-
-            if (formModel.worth !== "")
-                updatedAssignment.worth = parseFloat(formModel.worth);
-
-            this.assignment = updatedAssignment;
             this.assignmentForm.markAsPristine();
             this.change.emit(this.assignment);
         }

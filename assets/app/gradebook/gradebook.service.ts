@@ -1,7 +1,7 @@
 import {Gradebook} from "./gradebook.model";
 import {Assignment} from "./category/assignment/assignment.model";
 import {Category} from "./category/category.model";
-import {Http} from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
@@ -57,4 +57,11 @@ export class GradebookService {
             .catch((error: Response) => Observable.throw("Error in gradebook service"));
     }
 
+    updateGradebook(gradebook: Gradebook) {
+        const body = JSON.stringify(gradebook);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.patch('http://localhost:3000/gradebook/' + gradebook.id, body, new RequestOptions({headers: headers}))
+            .map(response => response.json())
+            .catch((error: Response) => Observable.throw(error.json()));
+    }
 }
