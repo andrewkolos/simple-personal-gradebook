@@ -8,12 +8,16 @@ import {emptyOrNumericValidator} from "../../../general/custom-validators";
     selector: 'app-assignment',
     template: `
         <form class="row" [formGroup]="assignmentForm" novalidate>
-            <input (focus)="$event.target.select()" (blur)="submitData()" class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
+            <input (focus)="$event.target.select()" (blur)="submitData()"
+                   class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput">
             <div class="input-group col-sm-7 col-md-6 col-lg-3">
-                <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control text-right" formControlName="earned"
+                <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control text-right"
+                       formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
-            <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control" formControlName="worth" id="worthInput">
+                <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control"
+                       formControlName="worth" id="worthInput">
+                <button type="button" class="btn btn-danger btn-sm" (click)="remove.emit(assignment)">X</button>
             </div>
         </form>
     `
@@ -23,6 +27,7 @@ export class AssignmentComponent implements OnInit {
     @Input() assignment: Assignment;
 
     @Output() change = new EventEmitter<Assignment>();
+    @Output() remove = new EventEmitter<Assignment>();
 
     assignmentForm: FormGroup;
 
@@ -54,7 +59,7 @@ export class AssignmentComponent implements OnInit {
 
             this.assignment.name = formModel.name;
             this.assignment.earned = formModel.earned === "" ? null : parseFloat(formModel.earned);
-            this.assignment.worth = formModel.worth === "" ? null: parseFloat(formModel.worth);
+            this.assignment.worth = formModel.worth === "" ? null : parseFloat(formModel.worth);
 
             this.assignmentForm.markAsPristine();
             this.change.emit(this.assignment);

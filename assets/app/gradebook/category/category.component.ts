@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Category} from "./category.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Assignment} from "./assignment/assignment.model";
 
 @Component({
     selector: 'app-category',
@@ -21,12 +22,14 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
         </form>
 
         <br>
-        
-        <div  *ngFor="let assignment of category.assignments">
-            <app-assignment [assignment]="assignment" (change)="change.emit(category)"></app-assignment>
+
+        <div *ngFor="let assignment of category.assignments">
+            <app-assignment [assignment]="assignment" (change)="change.emit(category)"
+                            (remove)="removeAssignment($event)"></app-assignment>
         </div>
-        
-        <app-category-footer (assignmentCreated)="category.assignments.push($event); change.emit(category)"></app-category-footer>
+
+        <app-category-footer
+                (assignmentCreated)="category.assignments.push($event); change.emit(category)"></app-category-footer>
     `
 })
 export class CategoryComponent implements OnInit {
@@ -57,5 +60,10 @@ export class CategoryComponent implements OnInit {
             this.categoryForm.markAsPristine();
             this.change.emit(this.category);
         }
+    }
+
+    removeAssignment(assignment: Assignment) {
+        this.category.assignments = this.category.assignments.filter((el: Assignment) => el !== assignment);
+        this.change.emit(this.category);
     }
 }
