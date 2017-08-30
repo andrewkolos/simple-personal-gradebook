@@ -61,13 +61,11 @@ import {GradebookService} from "../../gradebook/gradebook.service";
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete this gradebook? This cannot be undone.</p>
+                        <p>Are you sure you want to delete the {{gradebook.name}} gradebook? This cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteGradebook()">
-                            Save Changes
-                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGradebook()">Delete</button>
                     </div>
                 </div>
             </div>
