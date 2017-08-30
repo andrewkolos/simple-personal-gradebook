@@ -31,6 +31,9 @@ export class GradebookService {
 
     deleteGradebook(gradebook: Gradebook) {
         this._gradebooks.splice(this._gradebooks.indexOf(gradebook), 1);
+        return this.http.delete('http://localhost:3000/gradebook/' + gradebook.id)
+            .map(response => response.json())
+            .catch((error: Response) => Observable.throw(error.json()));
     }
 
     getGradebooks() {

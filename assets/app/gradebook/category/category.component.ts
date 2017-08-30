@@ -63,7 +63,7 @@ export class CategoryComponent implements OnInit {
     }
 
     removeAssignment(assignment: Assignment) {
-        this.category.assignments = this.category.assignments.filter((el: Assignment) => el !== assignment);
+        this.category.assignments.splice(this.category.assignments.indexOf(assignment),1);
         this.change.emit(this.category);
     }
 }
