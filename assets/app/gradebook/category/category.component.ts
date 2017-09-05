@@ -7,11 +7,11 @@ import {Assignment} from "./assignment/assignment.model";
     selector: 'app-category',
     template: `
         <form class="row" [formGroup]="categoryForm">
-            <div class="col-sm-5 col-md-5 pl-0">
+            <div class="col-sm-4 col-md-5 pl-0">
                 <input (focus)="$event.target.select()" class="form-control" (blur)="submitData()"
                        formControlName="name" id="nameInput">
             </div>
-            <div class="col-sm-7 offset-md-2 col-md-5 pr-0">
+            <div class="col-sm-7 offset-md-2 col-md-4 pr-0">
                 <div class="row input-group">
                     <label for="worthInput" class="col-6 col-form-label text-right">Weight:</label>
                     <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control"
@@ -19,6 +19,8 @@ import {Assignment} from "./assignment/assignment.model";
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
+
+            <button class="col-1 btn btn-danger btn-sm" type="button" (click)="remove.emit(category)">X</button>
         </form>
 
         <br>
@@ -37,6 +39,7 @@ export class CategoryComponent implements OnInit {
     @Input() category: Category;
 
     @Output() change = new EventEmitter<Category>();
+    @Output() remove = new EventEmitter<Category>();
 
     categoryForm = new FormGroup({
         name: new FormControl('', [Validators.required]),

@@ -18,6 +18,7 @@ import {routing} from "./app.routing";
 import {SigninComponent} from "./auth/signin.component";
 import {SignupComponent} from "./auth/signup.component";
 import {LogoutComponent} from "./auth/logout.component";
+import {GradebookFooterComponent} from "./gradebook/gradebook-footer.component";
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {LogoutComponent} from "./auth/logout.component";
         CategoryComponent,
         CategoryFooterComponent,
         GradebookComponent,
+        GradebookFooterComponent,
         GradebookCardComponent,
         GradebookListComponent,
         HeaderComponent,
