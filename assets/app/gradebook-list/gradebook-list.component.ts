@@ -19,7 +19,7 @@ import {GRADEBOOK_NAME_PATTERN} from "../general/patterns";
             </div>
             <button class="btn btn-primary" type="submit" [disabled]="!addGradebookForm.valid">Submit</button>
         </form>
-    `
+    `, styleUrls: ['gradebook-list.css']
 })
 export class GradebookListComponent implements OnInit {
     addGradebookForm: FormGroup;
