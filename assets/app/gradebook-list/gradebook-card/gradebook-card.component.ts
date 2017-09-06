@@ -122,7 +122,7 @@ export class GradebookCardComponent implements OnInit {
      * @returns {string}
      */
     uniqueAndIdAttrFriendlyName(text: string): string {
-        return text.replace(/[^0-9a-zA-Z]/gi, "")
+        return text.replace(/[^0-9a-zA-Z]/gi, "").substr(0, 10)
             + "-" + this.randomString + "-";
     }
 
