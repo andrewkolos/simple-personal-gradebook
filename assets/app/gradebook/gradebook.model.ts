@@ -1,4 +1,4 @@
-import { Category } from "./category/category.model"
+import {Category} from "./category/category.model"
 
 export class Gradebook {
 
@@ -17,5 +17,23 @@ export class Gradebook {
 
     get id(): string {
         return this._id;
+    }
+
+    get grade(): number {
+        let earnedPercent = 0;
+        let totalPercent = 0;
+
+        this.categories.forEach(c => {
+            let earnedTotal = 0;
+            let worthTotal = 0;
+            c.assignments.forEach(a => {
+                earnedTotal += a.earned;
+                worthTotal += a.worth
+            });
+            earnedPercent += (earnedTotal/worthTotal) * c.weight;
+            totalPercent += c.weight;
+        });
+
+        return earnedPercent / totalPercent;
     }
 }

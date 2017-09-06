@@ -11,7 +11,11 @@ import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
         <div class="card-body">
             <h4 class="card-title"><a [routerLink]="['/gradebook', gradebook.id]">{{gradebook.name}}</a></h4>
 
-            <p class="card-text">Hello, I am some placeholder text.</p>
+            <p class="card-text">
+                Grade: {{getGrade()}}
+                <span>{{gradebook.categories.length}} categories</span>
+                <span>{{countAssignments()}} assignments</span>
+            </p>
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="moreActionsDropdown"
                         data-toggle="dropdown">
@@ -77,7 +81,9 @@ import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
                 </div>
             </div>
         </div>
-    `
+    `, styles: [
+        'p span {display: block}'
+    ]
 })
 export class GradebookCardComponent implements OnInit {
 
@@ -115,5 +121,15 @@ export class GradebookCardComponent implements OnInit {
     uniqueAndIdAttrFriendlyName(text: string): string {
         return text.replace(/[^0-9a-zA-Z]/gi, "")
             + "-" + this.randomString + "-";
+    }
+
+    getGrade(): string {
+        return (this.gradebook.grade*100).toFixed(2) + "%";
+    }
+
+    countAssignments(): number {
+        let count = 0;
+        this.gradebook.categories.forEach(c => count += c.assignments.length);
+        return count;
     }
 }

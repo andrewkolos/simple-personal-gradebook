@@ -8,7 +8,7 @@ import {Category} from "./category/category.model";
     selector: 'app-gradebook',
     template: `
         <div class="row">
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9 order-2 order-md-1">
                 <span *ngIf="gradebook === undefined">loading</span>
 
                 <ng-container *ngIf="gradebook !== undefined">
@@ -25,10 +25,9 @@ import {Category} from "./category/category.model";
                 </app-gradebook-footer>
                 
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 order-1 order-md-2">
+                <h3 class="block">Grade: {{getGrade()}}</h3>
                 <hr class="d-md-none">
-                <h3 class="block">Grade:</h3>
-
             </div>
         </div>
     `,
@@ -60,5 +59,9 @@ export class GradebookComponent implements OnInit {
 
     removeCategory(category: Category) {
         this.gradebook.categories.splice(this.gradebook.categories.indexOf(category), 1);
+    }
+
+    getGrade(): string {
+        return (this.gradebook.grade*100).toFixed(2) + "%";
     }
 }
