@@ -26,6 +26,9 @@ import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
                             [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
                         Change name
                     </button>
+                    <button class="dropdown-item" (click)="makeCopy()">
+                        Make copy
+                    </button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item text-danger" data-toggle="modal"
                             [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
@@ -134,5 +137,10 @@ export class GradebookCardComponent implements OnInit {
         let count = 0;
         this.gradebook.categories.forEach(c => count += c.assignments.length);
         return count;
+    }
+
+    makeCopy() {
+        let copy: Gradebook = JSON.parse(JSON.stringify(this.gradebook));
+        this._gradebookService.addGradebook(copy).subscribe();
     }
 }

@@ -73,8 +73,8 @@ router.patch('/:id', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
    var gradebook = new Gradebook({
-       name: req.body.name
-
+       name: req.body.name,
+       categories: req.body.categories
    });
    gradebook.save(function(err, result) {
        if (err) {
