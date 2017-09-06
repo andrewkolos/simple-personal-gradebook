@@ -10,24 +10,28 @@ import {Category} from "./category/category.model";
         <div class="row">
             <div class="col-12 col-md-9 order-2 order-md-1">
                 <span *ngIf="gradebook === undefined">loading</span>
-
+                
                 <ng-container *ngIf="gradebook !== undefined">
                     <ng-container *ngFor="let category of gradebook.categories">
                         <app-category [category]="category" (change)="submitData()"
                                       (remove)="removeCategory($event); submitData()"></app-category>
                         <br>
                     </ng-container>
+                    <ng-container *ngIf="gradebook.categories.length === 0">
+                        <h5>Assignments are placed into categories. Create a category using the form below
+                        to start entering your grades.</h5>
+                    </ng-container>
                 </ng-container>
 
-                <hr class="mt-2 mb-4"/>
+                <hr class="mt-4 mb-4"/>
 
                 <app-gradebook-footer (add)="gradebook.categories.push($event); submitData()">
                 </app-gradebook-footer>
 
             </div>
-            <div class="col-12 col-md-3 order-1 order-md-2">
+            <div *ngIf="gradebook !== undefined" class="col-12 col-md-3 order-1 order-md-2">
                 <h3 class="block">Grade: {{getGrade()}}</h3>
-                <hr class="d-md-none">
+                <hr class="d-block d-md-none">
             </div>
         </div>
     `,
