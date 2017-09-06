@@ -22,7 +22,7 @@ import {Category} from "./category/category.model";
             </div>
 
             <div class="col-3 col-md-2 pl-0 pl-sm-3">
-                <button class="btn btn-primary float-right" type="submit" [disabled]="!addCategoryForm.valid">Add</button>
+                <button class="btn btn-primary float-right" style="width: 100%" type="submit" [disabled]="!addCategoryForm.valid">Add</button>
             </div>
         </form>
     `
