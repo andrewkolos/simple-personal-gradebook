@@ -6,21 +6,24 @@ import {Category} from "./category/category.model";
 @Component({
     selector: 'app-gradebook-footer',
     template: `
-        <h4>Add a new category</h4>
-        <form class="form-inline" id="addCategoryForm" [formGroup]="addCategoryForm" (ngSubmit)="onAddCategory()" novalidate>
-            <div class="input-group mr-2">
-                <label class="col-form-label mr-2" for="category-name">Name</label>
+        <h4 class="mb-3">Add a new category</h4>
+        <form class="form-inline row" id="addCategoryForm" [formGroup]="addCategoryForm" (ngSubmit)="onAddCategory()"
+              novalidate>
+            <div class="col-5 input-group">
+                <label class="col-form-label d-none d-sm-block mr-2" for="category-name">Name</label>
                 <input type="text" placeholder="New category name" id="category-name" class="form-control"
                        formControlName="name">
             </div>
-            
-            <div class="input-group mr-2 ml-2">
-                <label class="col-form-label mr-2" for="category-weight">Weight</label>
+
+            <div class="col-4 col-md-5 px-0 px-sm-3 input-group ">
+                <label class="col-form-label d-none d-sm-block mr-2" for="category-weight">Weight</label>
                 <input class="form-control" type="text" placeholder="0" formControlName="weight">
                 <span class="input-group-addon">%</span>
             </div>
 
-            <button class="col-2 btn btn-primary" type="submit" [disabled]="!addCategoryForm.valid">Add</button>
+            <div class="col-3 col-md-2 pl-0 pl-sm-3">
+                <button class="btn btn-primary float-right" type="submit" [disabled]="!addCategoryForm.valid">Add</button>
+            </div>
         </form>
     `
 })
@@ -32,7 +35,7 @@ export class GradebookFooterComponent implements OnInit {
     ngOnInit() {
         this.addCategoryForm = new FormGroup({
             name: new FormControl(null, [Validators.required, Validators.pattern(CATEGORY_NAME_PATTERN)]),
-            weight: new FormControl(null, [Validators.required, Validators.pattern( "\\d+") , Validators.min(0), Validators.max(100)])
+            weight: new FormControl(null, [Validators.required, Validators.pattern("\\d+"), Validators.min(0), Validators.max(100)])
         });
         console.log(this.addCategoryForm);
     }

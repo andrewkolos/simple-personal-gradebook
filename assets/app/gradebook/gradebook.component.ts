@@ -7,21 +7,29 @@ import {Category} from "./category/category.model";
 @Component({
     selector: 'app-gradebook',
     template: `
-        <div class="col-9">
-            <span *ngIf="gradebook === undefined">loading</span>
+        <div class="row">
+            <div class="col-12 col-md-9">
+                <span *ngIf="gradebook === undefined">loading</span>
 
-            <ng-container *ngIf="gradebook !== undefined">
-                <ng-container *ngFor="let category of gradebook.categories">
-                    <app-category [category]="category" (change)="submitData()"
-                                  (remove)="removeCategory($event); submitData()"></app-category>
-                    <br>
+                <ng-container *ngIf="gradebook !== undefined">
+                    <ng-container *ngFor="let category of gradebook.categories">
+                        <app-category [category]="category" (change)="submitData()"
+                                      (remove)="removeCategory($event); submitData()"></app-category>
+                        <br>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
 
-            <hr class="mt-2"/>
-            
-            <app-gradebook-footer (add)="gradebook.categories.push($event); submitData()">
-            </app-gradebook-footer>
+                <hr class="mt-2 mb-4"/>
+
+                <app-gradebook-footer (add)="gradebook.categories.push($event); submitData()">
+                </app-gradebook-footer>
+                
+            </div>
+            <div class="col-12 col-md-3">
+                <hr class="d-md-none">
+                <h3 class="block">Grade:</h3>
+
+            </div>
         </div>
     `,
 

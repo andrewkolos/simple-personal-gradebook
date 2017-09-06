@@ -8,15 +8,18 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
     selector: 'app-category-footer',
     template: `
         <form class="row" [formGroup]="assignmentForm" novalidate>
-            <input #nameInput (focus)="inputSelected($event)" (blur)="inputBlurred()"
-                   class="col-sm-5 col-md-6 col-lg-9 form-control" formControlName="name" id="nameInput"
-                   placeholder="New assignment">
-            <div class="input-group col-sm-7 col-md-6 col-lg-3">
+            <div class="col-5 col-md-6 col-lg-9">
+                <input #nameInput (focus)="inputSelected($event)" (blur)="inputBlurred()"
+                       class="form-control" formControlName="name" id="nameInput"
+                       placeholder="New assignment">
+            </div>
+            <div class="input-group col-7 col-md-6 col-lg-3 pl-0 pl-sm-3">
                 <input (focus)="inputSelected($event)" (blur)="inputBlurred()" class="form-control text-right"
                        formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
-                <input (focus)="inputSelected($event)" (keydown.tab)="$event.target.blur(); $event.preventDefault();" (blur)="inputBlurred($event, nameInput)" class="form-control"
+                <input (focus)="inputSelected($event)" (keydown.tab)="$event.target.blur(); $event.preventDefault();"
+                       (blur)="inputBlurred($event, nameInput)" class="form-control"
                        formControlName="worth" id="worthInput">
             </div>
         </form>
@@ -49,7 +52,9 @@ export class CategoryFooterComponent {
     }
 
     inputBlurred($event?, refocusTarget?) {
-        setTimeout(_ => {this.handleBlur(refocusTarget)}, 0);
+        setTimeout(_ => {
+            this.handleBlur(refocusTarget)
+        }, 0);
     }
 
     handleBlur(refocusTarget?) {

@@ -7,20 +7,21 @@ import {Assignment} from "./assignment/assignment.model";
     selector: 'app-category',
     template: `
         <form class="row" [formGroup]="categoryForm">
-            <div class="col-sm-4 col-md-5 pl-0">
+            <div class="col-5 col-md-6 input-group">
+                <label class="col-form-label d-none d-sm-block text-right mr-2" for="nameInput">Name</label>
                 <input (focus)="$event.target.select()" class="form-control" (blur)="submitData()"
                        formControlName="name" id="nameInput">
             </div>
-            <div class="col-sm-7 offset-md-2 col-md-4 pr-0">
-                <div class="row input-group">
-                    <label for="worthInput" class="col-6 col-form-label text-right">Weight:</label>
-                    <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control"
-                           formControlName="weight" id="weightInput">
-                    <span class="input-group-addon">%</span>
-                </div>
+            <div class="col-7 col-md-6 mr-md-auto pl-0 pl-sm-3 input-group">
+                <label for="worthInput" class="d-none d-sm-block col-form-label text-right mr-2">Weight</label>
+                <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control"
+                       formControlName="weight" id="weightInput">
+                <span class="input-group-addon">%</span>
+                <button class="btn btn-danger btn-sm float-right" type="button" (click)="remove.emit(category)">X
+                </button>
             </div>
 
-            <button class="col-1 btn btn-danger btn-sm" type="button" (click)="remove.emit(category)">X</button>
+      
         </form>
 
         <br>
@@ -66,7 +67,7 @@ export class CategoryComponent implements OnInit {
     }
 
     removeAssignment(assignment: Assignment) {
-        this.category.assignments.splice(this.category.assignments.indexOf(assignment),1);
+        this.category.assignments.splice(this.category.assignments.indexOf(assignment), 1);
         this.change.emit(this.category);
     }
 }
