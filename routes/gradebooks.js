@@ -1,11 +1,28 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
 
 var Gradebook = require('../models/gradebook');
+var User = require('../models/user');
+
+
+router.use('/', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: err
+            });
+        }
+        next(); // travel to next route
+    });
+});
 
 router.get('/', function (req, res, next) {
-    Gradebook.find()
-        .exec(function(err, gradebooks) {
+    var decoded = jwt.decode(req.query.token);
+
+    Gradebook.find({user: decoded.user._id})
+        .exec(function (err, gradebooks) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -20,27 +37,32 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-   Gradebook.findById(req.params.id, function (err, gradebook) {
-       if (err) {
-           return res.status(500).json({
-               title: 'An error occurred',
-               error: err
-           });
-       }
-       if (!gradebook) {
-           return res.status(500).json({
-               title: 'Gradebook not found',
-               error: {message: 'Gradebook not found'}
-           });
-       }
-       res.status(200).json({
-           message: 'Gradebook successfully retrieved',
-           obj: gradebook
-       })
-   });
+    var decoded = jwt.decode(req.query.token);
+
+    Gradebook.find({_id: req.params.id, user: decoded.user_id}, function (err, gradebook) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!gradebook) {
+            return res.status(500).json({
+                title: 'Gradebook not found',
+                error: {message: 'Gradebook not found'}
+            });
+        }
+        res.status(200).json({
+            message: 'Gradebook successfully retrieved',
+            obj: gradebook
+        })
+    });
 });
 
+
 router.patch('/:id', function (req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+
     Gradebook.findById(req.params.id, function (err, gradebook) {
         if (err) {
             return res.status(500).json({
@@ -54,9 +76,16 @@ router.patch('/:id', function (req, res, next) {
                 error: {message: 'Gradebook not found'}
             });
         }
+        if (gradebook.user != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: {message: 'users do not match'}
+            });
+        }
+
         gradebook.name = req.body.name;
         gradebook.categories = req.body.categories;
-        gradebook.save(function(err, result) {
+        gradebook.save(function (err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -72,25 +101,37 @@ router.patch('/:id', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-   var gradebook = new Gradebook({
-       name: req.body.name,
-       categories: req.body.categories
-   });
-   gradebook.save(function(err, result) {
-       if (err) {
-           return res.status(500).json({
-               title: 'An error occurred',
-               error: err
-           });
-       }
-       res.status(201).json({
-           message: 'Saved gradebook',
-           obj: result
-       });
-   });
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, function (err, user) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        var gradebook = new Gradebook({
+            name: req.body.name,
+            categories: req.body.categories,
+            user: user
+        });
+        gradebook.save(function (err, result) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Saved gradebook',
+                obj: result
+            });
+        });
+    });
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+
     Gradebook.findById(req.params.id, function (err, gradebook) {
         if (err) {
             return res.status(500).json({
@@ -104,7 +145,15 @@ router.delete('/:id', function(req, res, next) {
                 error: {message: 'Gradebook not found'}
             });
         }
-        gradebook.remove(function(err, result) {
+
+        if (gradebook.user != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: {message: 'users do not match'}
+            });
+        }
+
+        gradebook.remove(function (err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',

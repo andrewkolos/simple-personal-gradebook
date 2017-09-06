@@ -1,5 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "./auth.service";
+import {User} from "./user.model";
+import {matchOtherValidator} from "../general/custom-validators";
 
 // Only alphanumerics, underscore, and dot.
 // Underscore/dot cannot be at end or start.
@@ -32,16 +35,25 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
 export class SignupComponent implements OnInit {
     signupForm: FormGroup;
 
+    constructor(private authService: AuthService) {
+
+    }
+
     ngOnInit() {
         this.signupForm = new FormGroup({
             username: new FormControl(null, [Validators.required, Validators.pattern(usernamePattern)]),
             password: new FormControl(null, Validators.required),
-            confirmPassword: new FormControl(null, Validators.required)
+            confirmPassword: new FormControl(null, [Validators.required, matchOtherValidator('password')])
         });
     }
 
     onSubmit() {
-        console.log(this.signupForm);
+        const user = new User(this.signupForm.value.username, this.signupForm.value.password);
+        this.authService.signup(user)
+            .subscribe(
+                data => console.log(data),
+                error => console.log(error)
+            );
         this.signupForm.reset();
     }
 }

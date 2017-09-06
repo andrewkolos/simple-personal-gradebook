@@ -19,6 +19,8 @@ import {SigninComponent} from "./auth/signin.component";
 import {SignupComponent} from "./auth/signup.component";
 import {LogoutComponent} from "./auth/logout.component";
 import {GradebookFooterComponent} from "./gradebook/gradebook-footer.component";
+import {AuthService} from "./auth/auth.service";
+import {GradebookService} from "./gradebook/gradebook.service";
 
 @NgModule({
     declarations: [
@@ -38,6 +40,7 @@ import {GradebookFooterComponent} from "./gradebook/gradebook-footer.component";
         SignupComponent,
         LogoutComponent
     ],
+    providers: [AuthService],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
     bootstrap: [AppComponent]
 })

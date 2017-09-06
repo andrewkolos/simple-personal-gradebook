@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
 var gradebookRoutes = require('./routes/gradebooks');
+var userRoutes = require('./routes/user');
 
 var app = express();
 mongoose.connect('localhost:27017/node-angular');
@@ -33,6 +34,7 @@ app.use(function (req, res, next) {
 
 // note: more specific routes should be handled first
 app.use('/gradebook', gradebookRoutes);
+app.use('/user', userRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
