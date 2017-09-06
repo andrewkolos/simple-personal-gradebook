@@ -21,6 +21,8 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
                 <input (focus)="inputSelected($event)" (keydown.tab)="$event.target.blur(); $event.preventDefault();"
                        (blur)="inputBlurred($event, nameInput)" class="form-control"
                        formControlName="worth" id="worthInput">
+                <button type="button" class="d-block d-md-none btn btn-primary btn-sm"
+                        [disabled]="!assignmentForm.valid" (click)="submitData()">&#10004;</button>
             </div>
         </form>
     `
@@ -61,8 +63,15 @@ export class CategoryFooterComponent {
         this.elementsFocused -= 1;
         console.log(this.assignmentForm.status + " " + this.elementsFocused);
 
-        if (this.assignmentForm.status === "VALID" && this.elementsFocused == 0) { // create assignment
+        if (this.elementsFocused == 0) { // create assignment
+            this.submitData();
+            if (refocusTarget)
+                refocusTarget.focus();
+        }
+    }
 
+    submitData() {
+        if (this.assignmentForm.valid) {
             const formModel = this.assignmentForm.value;
 
             let assignment = new Assignment(formModel.name);
@@ -82,9 +91,6 @@ export class CategoryFooterComponent {
                 this.assignmentForm.controls[name].setValue('');
 
             this.assignmentForm.updateValueAndValidity();
-
-            if (refocusTarget)
-                refocusTarget.focus();
         }
     }
 

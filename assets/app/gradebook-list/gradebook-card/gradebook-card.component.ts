@@ -124,7 +124,10 @@ export class GradebookCardComponent implements OnInit {
     }
 
     getGrade(): string {
-        return (this.gradebook.grade*100).toFixed(2) + "%";
+        if (isNaN(this.gradebook.grade))
+            return "N/A"
+        else
+            return (this.gradebook.grade * 100).toFixed(2) + "%";
     }
 
     countAssignments(): number {

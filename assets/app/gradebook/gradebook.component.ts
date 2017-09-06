@@ -23,7 +23,7 @@ import {Category} from "./category/category.model";
 
                 <app-gradebook-footer (add)="gradebook.categories.push($event); submitData()">
                 </app-gradebook-footer>
-                
+
             </div>
             <div class="col-12 col-md-3 order-1 order-md-2">
                 <h3 class="block">Grade: {{getGrade()}}</h3>
@@ -62,6 +62,9 @@ export class GradebookComponent implements OnInit {
     }
 
     getGrade(): string {
-        return (this.gradebook.grade*100).toFixed(2) + "%";
+        if (isNaN(this.gradebook.grade))
+            return "N/A"
+        else
+            return (this.gradebook.grade * 100).toFixed(2) + "%";
     }
 }

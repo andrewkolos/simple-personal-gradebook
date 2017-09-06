@@ -27,8 +27,10 @@ export class Gradebook {
             let earnedTotal = 0;
             let worthTotal = 0;
             c.assignments.forEach(a => {
-                earnedTotal += a.earned;
-                worthTotal += a.worth
+                if (a.earned && a.worth) { // don't factor in the assignment if it has missing grade info
+                    earnedTotal += a.earned;
+                    worthTotal += a.worth
+                }
             });
             earnedPercent += (earnedTotal/worthTotal) * c.weight;
             totalPercent += c.weight;
