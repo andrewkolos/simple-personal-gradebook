@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
-import {GradebookListComponent} from "./gradebook-list/gradebook-list.component";
+import {GradebookListComponent} from "./gradebook/gradebook-list/gradebook-list.component";
 import {AuthenticationComponent} from "./auth/authentication.component";
 import {AUTH_ROUTES} from "./auth/auth.routes";
 import {GradebookComponent} from "./gradebook/gradebook.component";

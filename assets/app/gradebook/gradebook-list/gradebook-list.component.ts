@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {Gradebook} from "../gradebook/gradebook.model";
-import {GradebookService} from "../gradebook/gradebook.service";
+import {Gradebook} from "../gradebook.model";
+import {GradebookService} from "../gradebook.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {GRADEBOOK_NAME_PATTERN} from "../general/patterns";
-import {AuthService} from "../auth/auth.service";
+import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
+import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({

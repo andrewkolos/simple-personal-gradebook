@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {Gradebook} from "../../gradebook/gradebook.model";
-import {GradebookService} from "../../gradebook/gradebook.service";
+import {Gradebook} from "../../gradebook.model";
+import {GradebookService} from "../../gradebook.service";
 import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
-import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
+import {GRADEBOOK_NAME_PATTERN} from "../../../general/patterns";
 
 @Component({
     selector: 'app-gradebook-card',
