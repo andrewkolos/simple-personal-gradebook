@@ -18,8 +18,8 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
                        formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
-                <input (focus)="inputSelected($event)" (keydown.tab)="$event.target.blur(); $event.preventDefault();"
-                       (blur)="inputBlurred($event, nameInput)" class="form-control"
+                <input (focus)="inputSelected($event)" (keydown.tab)="inputBlurred(nameInput); $event.preventDefault();"
+                       (blur)="inputBlurred()" class="form-control"
                        formControlName="worth" id="worthInput">
                 <button type="button" class="d-block d-md-none btn btn-primary btn-sm"
                         [disabled]="!assignmentForm.valid" (click)="submitData()">&#10004;</button>
@@ -53,7 +53,7 @@ export class CategoryFooterComponent {
         });
     }
 
-    inputBlurred($event?, refocusTarget?) {
+    inputBlurred(refocusTarget?) {
         setTimeout(_ => {
             this.handleBlur(refocusTarget)
         }, 0);
