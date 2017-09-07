@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "./user.model";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
+import {tokenNotExpired} from "angular2-jwt";
 
 @Component({
         selector: 'app-signin',
@@ -35,7 +36,7 @@ export class SigninComponent implements OnInit {
 
     ngOnInit() {
 
-        if (this.authService.isLoggedIn()) {
+        if (this.authService.isLoggedIn() ) {
             this.router.navigateByUrl('/gradebook-list');
             return;
         }

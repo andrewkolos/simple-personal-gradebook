@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
+import {tokenNotExpired} from "angular2-jwt";
 
 @Component({
     selector: 'app-gradebook-list',
@@ -38,12 +39,6 @@ export class GradebookListComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.authService.isLoggedIn()) {
-            this.router.navigateByUrl('/auth/signin');
-            return;
-        }
-
-
         this._gradebookService.getGradebooks().subscribe(
             (gradebooks: Gradebook[]) => {
                 console.log(gradebooks);

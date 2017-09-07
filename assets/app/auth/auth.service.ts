@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import {tokenNotExpired} from "angular2-jwt";
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,6 @@ export class AuthService {
     }
 
     isLoggedIn() {
-        return localStorage.getItem('token') !== null;
+        return localStorage.getItem('token') !== null && tokenNotExpired('token');
     }
 }
