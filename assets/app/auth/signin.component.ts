@@ -60,6 +60,8 @@ export class SigninComponent implements OnInit {
                     console.log(error);
                     if (error.error.message === "Invalid login credentials") {
                         this.errorMessage = "Invalid login credentials.";
+                    } else {
+                        this.errorMessage = "Unexpected error occurred: " + error.error.message;
                     }
                 }
             );

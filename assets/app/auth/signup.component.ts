@@ -16,6 +16,9 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
 
         <div class="row">
             <div class="col-8 order-2 order-md-1">
+                <div *ngIf="errorMessage !== null" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
                 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -47,6 +50,8 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
 export class SignupComponent implements OnInit {
     signupForm: FormGroup;
 
+    errorMessage: string = null;
+
     constructor(private authService: AuthService) {
 
     }
@@ -63,9 +68,20 @@ export class SignupComponent implements OnInit {
         const user = new User(this.signupForm.value.username, this.signupForm.value.password);
         this.authService.signup(user)
             .subscribe(
-                data => console.log(data),
-                error => console.log(error)
-            );
-        this.signupForm.reset();
+                data => {
+                    console.log(data)
+                    this.errorMessage = null;
+                    this.signupForm.reset();
+                },
+                error => {
+                    if (error.error.message.includes("to be unique")) {
+                        this.errorMessage = "Username already taken.";
+                    } else {
+                        this.errorMessage = "Unexpected error occurred: " + error.error.message;
+                    }
+                    console.log(error);
+                });
     }
+
+
 }
