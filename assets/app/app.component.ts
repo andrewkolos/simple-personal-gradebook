@@ -3,8 +3,7 @@ import {GradebookService} from "./gradebook/gradebook.service";
 
 @Component({
     selector: 'my-app',
-    templateUrl: './app.component.html',
-    providers: [GradebookService]
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
     
