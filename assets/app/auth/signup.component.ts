@@ -13,22 +13,34 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
 @Component({
     selector: 'app-signup',
     template: `
-        <div class="col-md-8 col-md-offset-2">
-            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" class="form-control" formControlName="username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" formControlName="password">
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" class="form-control" formControlName="confirmPassword">
-                </div>
-                <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Submit</button>
-            </form>
+
+        <div class="row">
+            <div class="col-8 order-2 order-md-1">
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" formControlName="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" formControlName="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="form-control"
+                               formControlName="confirmPassword">
+                    </div>
+                    <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Submit</button>
+                </form>
+            </div>
+            <div class="col-12 col-md-3 order-1 order-md-2">
+                <h5>Usernames must:</h5>
+                <ul>
+                    <li>contain in between 4 and 30 characters</li>
+                    <li>not start with _ or .</li>
+                    <li>not have two underscores or dots adjacent to one another</li>
+                </ul>
+            </div>
         </div>
     `
 })

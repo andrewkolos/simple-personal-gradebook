@@ -5,7 +5,7 @@ import {AuthService} from "./auth.service";
     selector: 'app-authentication',
     template: `
         <div class="row">
-            <div class="spacing mx-auto col-8">
+            <div class="spacing mx-auto col-12">
                 <header>
                     <nav>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -27,9 +27,9 @@ import {AuthService} from "./auth.service";
                         </ul>
                     </nav>
                 </header>
+                <div class="mt-3">
                     <router-outlet></router-outlet>
-                
-
+                </div>
             </div>
         </div>
     `
