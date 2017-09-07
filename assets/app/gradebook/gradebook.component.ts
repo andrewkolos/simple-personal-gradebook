@@ -44,17 +44,17 @@ export class GradebookComponent implements OnInit {
         let id;
         this._route.params.subscribe(params => {
             id = params['id'];
-        });
 
-        this._gradebookService.getGradebookById(id)
-            .subscribe(
-                (gradebook: Gradebook) => {
-                    this.gradebook = gradebook;
-                },
-                error => {
-                    console.log(error);
-                }
-            );
+            this._gradebookService.getGradebookById(id)
+                .subscribe(
+                    (gradebook: Gradebook) => {
+                        this.gradebook = gradebook;
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+        });
     }
 
     constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute) {
