@@ -50,6 +50,9 @@ export class GradebookComponent implements OnInit {
             .subscribe(
                 (gradebook: Gradebook) => {
                     this.gradebook = gradebook;
+                },
+                error => {
+                    console.log(error);
                 }
             );
     }

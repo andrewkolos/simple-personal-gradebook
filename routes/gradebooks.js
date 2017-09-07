@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 
 var Gradebook = require('../models/gradebook');
 var User = require('../models/user');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 
 router.use('/', function (req, res, next) {
@@ -39,7 +41,8 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
     var decoded = jwt.decode(req.query.token);
 
-    Gradebook.find({_id: req.params.id, user: decoded.user_id}, function (err, gradebook) {
+    // security flaw here as any user can retrieve any other user's gradebook
+    Gradebook.findById(req.params.id, function (err, gradebook) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
