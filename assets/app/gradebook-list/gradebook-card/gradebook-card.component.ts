@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Gradebook} from "../../gradebook/gradebook.model";
 import {GradebookService} from "../../gradebook/gradebook.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
 import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
 
 @Component({
@@ -42,7 +42,7 @@ import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
              tabindex="-1" role="dialog"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form class="modal-content" [formGroup]="renameGradebookForm" (ngSubmit)="updateName()">
+                <form novalidate class="modal-content" [formGroup]="renameGradebookForm">
                     <div class="modal-header">
                         <h5 class="modal-title">Change gradebook name</h5>
                         <button type="button" class="close" data-dismiss="modal">
@@ -54,8 +54,8 @@ import {GRADEBOOK_NAME_PATTERN} from "../../general/patterns";
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" type="button" type="submit" data-dismiss="modal"
-                                [disabled]="!renameGradebookForm.valid">Save Changes
+                        <button class="btn btn-primary" type="submit" data-dismiss="modal"
+                                [disabled]="!renameGradebookForm.valid" (click)="updateName()">Save Changes
                         </button>
                     </div>
                 </form>
@@ -106,8 +106,10 @@ export class GradebookCardComponent implements OnInit {
     }
 
     updateName() {
-        this.gradebook.name = this.renameGradebookForm.value.name;
-        this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
+        if (this.renameGradebookForm.valid) {
+            this.gradebook.name = this.renameGradebookForm.value.name;
+            this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
+        }
     }
 
     deleteGradebook() {
