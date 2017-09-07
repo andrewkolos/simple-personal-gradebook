@@ -7,6 +7,10 @@ import {Router} from "@angular/router";
 @Component({
         selector: 'app-signin',
         template: `
+            
+            <div *ngIf="errorMessage !== null" class="alert alert-danger" role="alert">
+                {{errorMessage}}
+            </div>
             <div class="col-8">
                 <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
@@ -24,6 +28,8 @@ import {Router} from "@angular/router";
     })
 export class SigninComponent implements OnInit {
     signinForm: FormGroup;
+
+    errorMessage: string = null;
 
     constructor(private authService: AuthService, private router: Router) {}
 
@@ -48,9 +54,16 @@ export class SigninComponent implements OnInit {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
                 this.router.navigateByUrl('/gradebook-list');
+                this.errorMessage = null;
             },
-                error => console.error(error)
+                error => {
+                    console.log(error);
+                    if (error.error.message === "Invalid login credentials") {
+                        this.errorMessage = "Invalid login credentials.";
+                    }
+                }
             );
+
         this.signinForm.reset();
     }
 }
