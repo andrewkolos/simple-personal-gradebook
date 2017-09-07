@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 @Component({
         selector: 'app-signin',
         template: `
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-8">
                 <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -28,6 +28,12 @@ export class SigninComponent implements OnInit {
     constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit() {
+
+        if (this.authService.isLoggedIn()) {
+            this.router.navigateByUrl('/gradebook-list');
+            return;
+        }
+
         this.signinForm = new FormGroup({
             username: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required)
