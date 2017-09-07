@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "./auth.service";
 import {User} from "./user.model";
 import {matchOtherValidator} from "../general/custom-validators";
+import {Router} from "@angular/router";
 
 // Only alphanumerics, underscore, and dot.
 // Underscore/dot cannot be at end or start.
@@ -52,7 +53,7 @@ export class SignupComponent implements OnInit {
 
     errorMessage: string = null;
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private router: Router) {
 
     }
 
@@ -72,6 +73,20 @@ export class SignupComponent implements OnInit {
                     console.log(data)
                     this.errorMessage = null;
                     this.signupForm.reset();
+
+                    this.authService.signin(user)
+                        .subscribe(
+                            data => {
+                                localStorage.setItem('token', data.token);
+                                localStorage.setItem('userId', data.userId);
+                                this.router.navigateByUrl('/gradebook-list');
+                                this.errorMessage = null;
+                            },
+                            error => {
+                                console.log(error);
+                                this.errorMessage = "Unexpected error occurred: " + error.error.message;
+                            }
+                        );
                 },
                 error => {
                     if (error.error.message.includes("to be unique")) {
@@ -82,6 +97,4 @@ export class SignupComponent implements OnInit {
                     console.log(error);
                 });
     }
-
-
 }
