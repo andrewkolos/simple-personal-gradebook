@@ -6,6 +6,13 @@ var jwt =  require('jsonwebtoken');
 var User = require('../models/user');
 
 router.post('/', function (req, res, next) {
+    if (!req.body.username || !req.body.password) { // make sure necessary fields are provided
+        return res.status(500).json({
+            title: 'An error occurred',
+            error: {message: 'Username and/or password missing'}
+        });
+    }
+
     var user = new User({
        username: req.body.username,
        password: bcrypt.hashSync(req.body.password, 10)
@@ -25,6 +32,13 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/signin', function(req, res, next) {
+    if (!req.body.username || !req.body.password) { // make sure necessary fields are provided
+        return res.status(500).json({
+            title: 'An error occurred',
+            error: {message: 'Username and/or password missing'}
+        });
+    }
+
     User.findOne({username: req.body.username}, function(err, user) {
         console.log(user);
         if (err) {
