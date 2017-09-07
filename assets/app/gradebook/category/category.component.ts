@@ -8,7 +8,7 @@ import {Assignment} from "./assignment/assignment.model";
     template: `
         <form class="row" [formGroup]="categoryForm">
             <div class="col-5 col-md-6 input-group">
-                <label class="col-form-label d-none d-sm-block text-right mr-2" for="nameInput">Name</label>
+                <label class="col-form-label d-none d-sm-block text-right mr-2" for="nameInput">Category</label>
                 <input (focus)="$event.target.select()" class="form-control" (blur)="submitData()"
                        formControlName="name" id="nameInput">
             </div>
@@ -20,8 +20,7 @@ import {Assignment} from "./assignment/assignment.model";
                 <button class="btn btn-danger btn-sm float-right" type="button" (click)="remove.emit(category)">X
                 </button>
             </div>
-
-      
+            
         </form>
 
         <br>
@@ -33,6 +32,7 @@ import {Assignment} from "./assignment/assignment.model";
 
         <app-category-footer
                 (assignmentCreated)="category.assignments.push($event); change.emit(category)"></app-category-footer>
+        <hr class="mt-4 mb-4">
     `
 })
 export class CategoryComponent implements OnInit {

@@ -17,20 +17,15 @@ import {Category} from "./category/category.model";
             </div>
 
             <div class="col-12 col-md-9 order-2 order-md-1">
-
-
-                <ng-container *ngFor="let category of gradebook.categories">
-                    <app-category [category]="category" (change)="submitData()"
-                                  (remove)="removeCategory($event); submitData()"></app-category>
-                    <br>
-                </ng-container>
+                <app-category *ngFor="let category of gradebook.categories" [category]="category"
+                              (change)="submitData()"
+                              (remove)="removeCategory($event); submitData()"></app-category>
                 <ng-container *ngIf="gradebook.categories.length === 0">
-                    <h5>Assignments are placed into categories. Create a category using the form below
-                        to start entering your grades.</h5>
+                    <div class="alert alert-primary">Assignments are placed into categories. Create a category using the
+                        form below
+                        to start entering your grades.
+                    </div>
                 </ng-container>
-          
-
-                <hr class="mt-4 mb-4"/>
 
                 <app-gradebook-footer (add)="gradebook.categories.push($event); submitData()">
                 </app-gradebook-footer>
