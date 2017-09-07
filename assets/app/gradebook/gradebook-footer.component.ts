@@ -11,7 +11,7 @@ import {Category} from "./category/category.model";
               novalidate>
             <div class="col-5 input-group">
                 <label class="col-form-label d-none d-sm-block mr-2" for="category-name">Name</label>
-                <input type="text" placeholder="New category name" id="category-name" class="form-control"
+                <input #nameInput type="text" placeholder="New category name" id="category-name" class="form-control"
                        formControlName="name">
             </div>
 
@@ -22,7 +22,8 @@ import {Category} from "./category/category.model";
             </div>
 
             <div class="col-3 col-md-2 pl-0 pl-sm-3">
-                <button class="btn btn-primary float-right" style="width: 100%" type="submit" [disabled]="!addCategoryForm.valid">Add</button>
+                <button class="btn btn-primary float-right" style="width: 100%" type="submit" [disabled]="!addCategoryForm.valid"
+                (keyup.enter)="focusTarget(nameInput)">Add</button>
             </div>
         </form>
     `
@@ -42,5 +43,14 @@ export class GradebookFooterComponent implements OnInit {
 
     onAddCategory() {
         this.add.emit(new Category(this.addCategoryForm.value.name, [], this.addCategoryForm.value.weight / 100.0));
+        this.addCategoryForm.reset();
+    }
+
+    focusTarget(refocusTarget) {
+        if (refocusTarget) {
+            setTimeout(_ => {
+                refocusTarget.focus();
+            }, 0);
+        }
     }
 }
