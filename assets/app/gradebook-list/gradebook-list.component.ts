@@ -32,6 +32,9 @@ export class GradebookListComponent implements OnInit {
     gradebooks: Gradebook[];
 
     constructor(private _gradebookService: GradebookService, private authService: AuthService, private router: Router) {
+        this.addGradebookForm = new FormGroup({
+            name: new FormControl(null, [Validators.required, Validators.pattern(GRADEBOOK_NAME_PATTERN)])
+        });
     }
 
     ngOnInit() {
@@ -40,9 +43,6 @@ export class GradebookListComponent implements OnInit {
             return;
         }
 
-        this.addGradebookForm = new FormGroup({
-            name: new FormControl(null, [Validators.required, Validators.pattern(GRADEBOOK_NAME_PATTERN)])
-        });
 
         this._gradebookService.getGradebooks().subscribe(
             (gradebooks: Gradebook[]) => {
