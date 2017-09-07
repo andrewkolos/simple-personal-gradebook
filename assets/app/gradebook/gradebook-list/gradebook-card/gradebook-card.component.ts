@@ -3,6 +3,8 @@ import {Gradebook} from "../../gradebook.model";
 import {GradebookService} from "../../gradebook.service";
 import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
 import {GRADEBOOK_NAME_PATTERN} from "../../../general/patterns";
+import {AuthService} from "../../../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-gradebook-card',
@@ -88,7 +90,7 @@ import {GRADEBOOK_NAME_PATTERN} from "../../../general/patterns";
         'p span {display: block}'
     ]
 })
-export class GradebookCardComponent implements OnInit {
+export class GradebookCardComponent implements OnInit{
 
     @Input() gradebook: Gradebook;
 
@@ -96,7 +98,7 @@ export class GradebookCardComponent implements OnInit {
 
     randomString: string = Math.random().toString(36).substring(8);
 
-    constructor(private _gradebookService: GradebookService) {
+    constructor(private _gradebookService: GradebookService, private authService: AuthService, private router: Router) {
     }
 
     ngOnInit() {

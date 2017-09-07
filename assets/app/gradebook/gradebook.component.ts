@@ -1,8 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Gradebook} from "./gradebook.model";
 import {GradebookService} from "./gradebook.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Category} from "./category/category.model";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
     selector: 'app-gradebook',
@@ -49,6 +50,10 @@ export class GradebookComponent implements OnInit, DoCheck {
     gradeCalcMessage: string = null;
 
     ngOnInit(): void {
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigateByUrl('/auth/signin');
+            return;
+        }
 
         let id;
         this._route.params.subscribe(params => {
@@ -79,10 +84,15 @@ export class GradebookComponent implements OnInit, DoCheck {
         }
     }
 
-    constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute) {
+    constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute, private authService: AuthService, private router: Router) {
     }
 
     submitData() {
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigateByUrl('/auth/signin');
+            return;
+        }
+
         this._gradebookService.updateGradebook(this.gradebook).subscribe(
             result => {
                 console.log(result)

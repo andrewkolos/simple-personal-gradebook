@@ -53,7 +53,14 @@ export class GradebookListComponent implements OnInit {
     }
 
     onAddGradebook() {
-        this._gradebookService.addGradebook(new Gradebook(this.addGradebookForm.value.name, [])).subscribe(res => console.log(res));
+        this._gradebookService.addGradebook(new Gradebook(this.addGradebookForm.value.name, [])).subscribe(
+            res => console.log(res),
+            error => {
+                if (error.title.includes("Not authenticated")) {
+                    this.router.navigateByUrl('/auth/signin');
+                }
+            }
+        );
         this.addGradebookForm.reset();
     }
 }
