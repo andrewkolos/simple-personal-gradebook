@@ -8,9 +8,14 @@ import {Category} from "./category/category.model";
     selector: 'app-gradebook',
     template: `
         <div class="row">
+            <div *ngIf="errorMessage !== null" class="col-12 alert alert-danger" role="alert">
+                {{errorMessage}}
+            </div>
+
             <div class="col-12 col-md-9 order-2 order-md-1">
+
                 <span *ngIf="gradebook === undefined">loading</span>
-                
+
                 <ng-container *ngIf="gradebook !== undefined">
                     <ng-container *ngFor="let category of gradebook.categories">
                         <app-category [category]="category" (change)="submitData()"
@@ -19,7 +24,7 @@ import {Category} from "./category/category.model";
                     </ng-container>
                     <ng-container *ngIf="gradebook.categories.length === 0">
                         <h5>Assignments are placed into categories. Create a category using the form below
-                        to start entering your grades.</h5>
+                            to start entering your grades.</h5>
                     </ng-container>
                 </ng-container>
 
@@ -39,6 +44,8 @@ import {Category} from "./category/category.model";
 })
 export class GradebookComponent implements OnInit {
     gradebook: Gradebook;
+
+    errorMessage: string = null;
 
     ngOnInit(): void {
         let id;
@@ -61,8 +68,17 @@ export class GradebookComponent implements OnInit {
     }
 
     submitData() {
-        this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
+        this._gradebookService.updateGradebook(this.gradebook).subscribe(
+            result => {
+                console.log(result)
+                this.errorMessage = null;
+            },
+            error => {
+                this.errorMessage = "The gradebook could not be saved at this time. Please try refreshing the page."
+                console.log(error);
+            });
     }
+
 
     removeCategory(category: Category) {
         this.gradebook.categories.splice(this.gradebook.categories.indexOf(category), 1);
