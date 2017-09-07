@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {AuthService} from "./auth.service";
 
 @Component({
@@ -7,14 +7,17 @@ import {AuthService} from "./auth.service";
         <header class="row spacing">
             <nav class="col-md-8 col-md-offset-2">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" *ngIf="!isLoggedIn()">
-                        <a class="nav-link active" id="signup-tab" data-toggle="tab" aria-controls="signup" aria-expended="true" [routerLink]="['signup']">Signup</a>
+                    <li class="nav-item" *ngIf="!isLoggedIn">
+                        <a class="nav-link" id="signup-tab" data-toggle="tab" aria-controls="signup" aria-expended="true" 
+                           [routerLink]="['signup']" routerLinkActive="active">Signup</a>
                     </li>
-                    <li class="nav-item" *ngIf="!isLoggedIn()">
-                        <a class="nav-link" id="signin-tab" data-toggle="tab" aria-controls="signin" aria-expended="true" [routerLink]="['signin']">Signin</a>
+                    <li class="nav-item" *ngIf="!isLoggedIn">
+                        <a class="nav-link" id="signin-tab" data-toggle="tab" aria-controls="signin" aria-expended="true" 
+                           [routerLink]="['signin']" routerLinkActive="active">Signin</a>
                     </li>
-                    <li class="nav-item" *ngIf="isLoggedIn()">
-                        <a class="nav-link" id="logout-tab" data-toggle="tab" aria-controls="logout" aria-expended="true" [routerLink]="['logout']">Logout</a>
+                    <li class="nav-item" *ngIf="isLoggedIn">
+                        <a class="nav-link" id="logout-tab" data-toggle="tab" aria-controls="logout" aria-expended="true" 
+                           [routerLink]="['logout']" routerLinkActive="active">Logout</a>
                     </li>
                 </ul>
             </nav>
@@ -24,12 +27,21 @@ import {AuthService} from "./auth.service";
         </div>
     `
 })
-export class AuthenticationComponent {
+export class AuthenticationComponent implements OnInit, AfterViewInit {
 
-    constructor(private authService: AuthService) {}
+    isLoggedIn = false;
 
-    isLoggedIn() {
-        return this.authService.isLoggedIn();
+    constructor(private authService: AuthService, private cdr: ChangeDetectorRef) {}
+
+    ngOnInit() {
+        this.isLoggedIn = this.authService.isLoggedIn();
     }
+
+    ngAfterViewInit() {
+        this.isLoggedIn =this.authService.isLoggedIn();
+        this.cdr.detectChanges();
+    }
+
+
 
 }
