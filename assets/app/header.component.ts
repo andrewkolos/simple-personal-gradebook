@@ -13,10 +13,10 @@ import {AuthService} from "./auth/auth.service";
                 <ul class="navbar-nav mx-auto w-100 justify-content-center">
                     <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" class="nav-item">
                         <a [routerLink]="['/gradebook-list']"
-                           class="nav-link"  href="#">My Gradebooks</a>
+                           class="nav-link">My Gradebooks</a>
                     </li>
                     <li *ngIf="!authService.isLoggedIn()">
-                        <a class="nav-link disabled"  href="#">My Gradebooks</a>
+                        <a class="nav-link disabled">My Gradebooks</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto w-100 justify-content-end">

@@ -24,6 +24,14 @@ import {tokenNotExpired} from "angular2-jwt";
                 </div>
                 <button class="btn btn-primary" type="submit" [disabled]="!addGradebookForm.valid">Submit</button>
             </form>
+            <div class="alert alert-info mt-4 col-12">
+                <h5>Names must:</h5>
+                <ul>
+                    <li>contain in between 1 and 30 characters</li>
+                    <li>not start or end with a space</li>
+                    <li>be composed of alphanumeric characters, space, parentheses, and square brackets</li>
+                </ul>
+            </div>
         </ng-container>
     `, styleUrls: ['gradebook-list.css']
 })
@@ -39,6 +47,11 @@ export class GradebookListComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!this.authService.isLoggedIn()) {
+            this.router.navigateByUrl('/auth/signin');
+            return;
+        }
+
         this._gradebookService.getGradebooks().subscribe(
             (gradebooks: Gradebook[]) => {
                 console.log(gradebooks);
