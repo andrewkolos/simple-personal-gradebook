@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
             <div *ngIf="errorMessage !== null" class="alert alert-danger" role="alert">
                 {{errorMessage}}
             </div>
-            <div class="col-8">
+            <div class="col-12 col-md-8">
                 <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="username">Username</label>
