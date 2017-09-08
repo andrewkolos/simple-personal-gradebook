@@ -19,7 +19,7 @@ import {AuthService} from "../auth/auth.service";
 
             <div class="col-12 col-md-9 order-2 order-md-1">
                 <app-category *ngFor="let category of gradebook.categories" [category]="category"
-                              (change)="submitData()"
+                              (change)="submitData(category)"
                               (remove)="removeCategory($event); submitData()"></app-category>
                 <ng-container *ngIf="gradebook.categories.length === 0">
                     <div class="alert alert-primary">Assignments are placed into categories. Create a category using the
@@ -88,7 +88,10 @@ export class GradebookComponent implements OnInit, DoCheck {
     constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute, private authService: AuthService, private router: Router) {
     }
 
-    submitData() {
+    submitData(category: Category) {
+        if (!category) // bandaid hack to prevent double-firing
+            return;
+
         if (!this.authService.isLoggedIn()) {
             this.router.navigateByUrl('/auth/signin');
             return;

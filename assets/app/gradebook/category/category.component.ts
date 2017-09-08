@@ -26,7 +26,7 @@ import {Assignment} from "./assignment/assignment.model";
         <br>
 
         <div *ngFor="let assignment of category.assignments">
-            <app-assignment [assignment]="assignment" (change)="change.emit(category)"
+            <app-assignment [assignment]="assignment" (change)="onAssignmentChange(assignment)"
                             (remove)="removeAssignment($event)"></app-assignment>
         </div>
 
@@ -52,6 +52,12 @@ export class CategoryComponent implements OnInit {
             name: this.category.name,
             weight: this.category.weight * 100
         })
+    }
+
+    onAssignmentChange(assignment : Assignment) {
+        if (!assignment) // bandaid hack to prevent double firing
+            return;
+        this.submitData();
     }
 
     submitData() {
