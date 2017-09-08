@@ -82,7 +82,8 @@ export class SignupComponent implements OnInit {
                         .subscribe(
                             data => {
                                 localStorage.setItem('token', data.token);
-                                localStorage.setItem('userId', data.userId);
+                                localStorage.setItem('userId', data.userId)
+                                localStorage.setItem('username', data.username);
                                 this.router.navigateByUrl('/gradebook-list');
                                 this.errorMessage = null;
                             },
