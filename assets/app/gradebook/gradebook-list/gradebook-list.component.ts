@@ -10,7 +10,7 @@ import {tokenNotExpired} from "angular2-jwt";
 @Component({
     selector: 'app-gradebook-list',
     template: `
-        <ng-container *ngIf="authService.isLoggedIn()">
+        <ng-container *ngIf="isLoggedIn()">
             <div class="card-columns">
                 <app-gradebook-card class="card" *ngFor="let gradebook of gradebooks"
                                     [gradebook]="gradebook"></app-gradebook-card>
@@ -70,5 +70,9 @@ export class GradebookListComponent implements OnInit {
             }
         );
         this.addGradebookForm.reset();
+    }
+
+    isLoggedIn() {
+        return this.authService.isLoggedIn()
     }
 }

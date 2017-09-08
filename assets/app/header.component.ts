@@ -12,16 +12,16 @@ import {AuthService} from "./auth/auth.service";
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto w-100 justify-content-center">
-                    <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" class="nav-item">
+                    <li *ngIf="isLoggedIn()" routerLinkActive="active" class="nav-item">
                         <a [routerLink]="['/gradebook-list']"
                            class="nav-link">My Gradebooks</a>
                     </li>
-                    <li *ngIf="!authService.isLoggedIn()">
+                    <li *ngIf="!isLoggedIn()">
                         <a class="nav-link disabled">My Gradebooks</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto w-100 justify-content-end">
-                    <ng-container *ngIf="authService.isLoggedIn()">
+                    <ng-container *ngIf="isLoggedIn()">
                         <span class="d-none d-xl-block navbar-text">
                             {{getUsernameString()}}
                         </span>
@@ -63,5 +63,9 @@ export class HeaderComponent {
     getUsernameString() {
         let username: string = localStorage.getItem('username');
         return username === null ? "" : "Hello, " + username;
+    }
+
+    isLoggedIn() {
+        return this.authService.isLoggedIn();
     }
 }
