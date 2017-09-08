@@ -4,12 +4,7 @@ import {AuthService} from "./auth.service";
 import {User} from "./user.model";
 import {matchOtherValidator} from "../general/custom-validators";
 import {Router} from "@angular/router";
-
-// Only alphanumerics, underscore, and dot.
-// Underscore/dot cannot be at end or start.
-// Underscore and dot cannot be adjacent to another underscore or dot.
-// Number of characters is between 4 and 30, inclusive.
-const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]";
+import {usernamePattern} from "../general/patterns";
 
 @Component({
     selector: 'app-signup',
