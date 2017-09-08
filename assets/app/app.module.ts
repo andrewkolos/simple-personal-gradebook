@@ -8,12 +8,14 @@ import {AuthenticationComponent} from "./auth/authentication.component";
 import {routing} from "./app.routing";
 import {AuthService} from "./auth/auth.service";
 import {GradebookModule} from "./gradebook/gradebook.module";
+import {AutofocusDirective} from "./general/autofocus.directive";
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        AuthenticationComponent
+        AuthenticationComponent,
+        AutofocusDirective
     ],
     providers: [AuthService],
     imports: [

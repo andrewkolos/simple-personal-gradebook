@@ -30,7 +30,7 @@ import {usernamePattern} from "../general/patterns";
                 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" id="username" class="form-control" formControlName="username">
+                        <input [autofocus]="true" type="text" id="username" class="form-control" formControlName="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

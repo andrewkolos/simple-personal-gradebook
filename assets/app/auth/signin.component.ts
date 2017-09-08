@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "./user.model";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
-import {tokenNotExpired} from "angular2-jwt";
 
 @Component({
         selector: 'app-signin',
@@ -16,7 +15,7 @@ import {tokenNotExpired} from "angular2-jwt";
                 <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" id="username" class="form-control" formControlName="username">
+                        <input [autofocus]="true" type="text" id="username" class="form-control" formControlName="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
