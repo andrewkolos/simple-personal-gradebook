@@ -36,7 +36,7 @@ import {AuthService} from "./auth/auth.service";
     `,
     styles: [`
         .navbar .divider-vertical {
-            margin: 0 9px;
+            margin: 0 9px 0 15px;
             border-right: 1px solid #f0f0f0;
             border-left: 1px solid #f0f0f0;
         }
