@@ -27,9 +27,9 @@ import {tokenNotExpired} from "angular2-jwt";
             <div class="alert alert-info mt-4 col-12">
                 <h5>Names must:</h5>
                 <ul>
-                    <li>contain in between 1 and 30 characters</li>
-                    <li>not start or end with a space</li>
                     <li>be composed of alphanumeric characters, space, parentheses, and square brackets</li>
+                    <li>be made up of in between 1 and 30 characters</li>
+                    <li>not start or end with a space</li>
                 </ul>
             </div>
         </ng-container>
