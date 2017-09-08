@@ -33,7 +33,8 @@ import {AuthService} from "../auth/auth.service";
 
             </div>
             <div *ngIf="gradebook !== undefined" class="col-12 col-md-3 order-1 order-md-2">
-                <h3 class="block">Grade: {{getGrade()}}</h3>
+                <h2 class="text-primary">{{gradebook.name}}</h2>
+                <h3>Grade: {{getGrade()}}</h3>
                 <div *ngIf="gradeCalcMessage !== null" class="col-12 alert alert-warning" role="alert">
                     {{gradeCalcMessage}}
                 </div>
