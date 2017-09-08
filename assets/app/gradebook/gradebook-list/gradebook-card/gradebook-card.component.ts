@@ -18,25 +18,16 @@ import {Router} from "@angular/router";
                 <span>{{gradebook.categories.length}} categories</span>
                 <span>{{countAssignments()}} assignments</span>
             </p>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="moreActionsDropdown"
-                        data-toggle="dropdown">
-                    More actions
-                </button>
-                <div class="dropdown-menu">
-                    <button class="dropdown-item" data-toggle="modal"
-                            [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
-                        Change name
-                    </button>
-                    <button class="dropdown-item" (click)="makeCopy()">
-                        Make copy
-                    </button>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item text-danger" data-toggle="modal"
-                            [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
-                    </button>
-                </div>
-            </div>
+            <button class="btn btn-outline-primary" data-toggle="modal"
+                    [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
+                Change name
+            </button>
+            <button class="btn btn-outline-info" (click)="makeCopy()">
+                Make copy
+            </button>
+            <button class="btn btn-outline-danger" data-toggle="modal"
+                    [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
+            </button>
         </div>
 
         <!-- modals -->
@@ -55,7 +46,7 @@ import {Router} from "@angular/router";
                         <input class="form-control" (click)="$event.target.select()" formControlName="name">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
                         <button class="btn btn-primary" type="submit" data-dismiss="modal"
                                 [disabled]="!renameGradebookForm.valid" (click)="updateName()">Save Changes
                         </button>
@@ -78,7 +69,7 @@ import {Router} from "@angular/router";
                         <p>Are you sure you want to delete the <strong>{{gradebook.name}}</strong> gradebook? This cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGradebook()">
                             Delete
                         </button>
