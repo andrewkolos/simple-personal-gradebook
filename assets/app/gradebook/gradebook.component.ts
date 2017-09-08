@@ -96,11 +96,11 @@ export class GradebookComponent implements OnInit, DoCheck {
 
         this._gradebookService.updateGradebook(this.gradebook).subscribe(
             result => {
-                console.log(result)
+                console.log(result);
                 this.errorMessage = null;
             },
             error => {
-                this.errorMessage = "The gradebook could not be saved at this time. Please try refreshing the page."
+                this.errorMessage = "The gradebook could not be saved at this time. Please try refreshing the page.";
                 console.log(error);
             });
     }
