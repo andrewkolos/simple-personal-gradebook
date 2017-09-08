@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
     template: `
 
         <div class="card-body">
-            <h4 class="card-title"><a [routerLink]="['/gradebook', gradebook.id]">{{gradebook.name}}</a></h4>
+            <h4 class="card-title"><a [routerLink]="['/gradebooks', gradebook.id]">{{gradebook.name}}</a></h4>
 
             <p class="card-text">
                 Grade: {{getGrade()}}

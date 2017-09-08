@@ -6,7 +6,7 @@ import {GradebookComponent} from "./gradebook/gradebook.component";
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/auth/signin', pathMatch: 'full' },
     { path: 'gradebook-list', component: GradebookListComponent },
-    { path: 'gradebook/:id', component: GradebookComponent },
+    { path: 'gradebooks/:id', component: GradebookComponent },
     { path: 'auth', component: AuthenticationComponent, loadChildren: './auth/auth.module#AuthModule' }
 ];
 
