@@ -16,15 +16,17 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
     template: `
 
         <div class="row">
-            <div class="col-12 col-md-8 alert alert-info">
-                <h5>Usernames must:</h5>
-                <ul>
-                    <li>contain in between 4 and 30 characters</li>
-                    <li>not start with _ or .</li>
-                    <li>not have two underscores or dots adjacent to one another</li>
-                </ul>
+            <div class="col-12 col-md-8">
+                <div class="alert alert-info">
+                    <h5>Usernames must:</h5>
+                    <ul>
+                        <li>contain in between 4 and 30 characters</li>
+                        <li>not start with _ or .</li>
+                        <li>not have two underscores or dots adjacent to one another</li>
+                    </ul>
+                </div>
             </div>
-            
+
             <div class="col-12 col-md-8">
                 <div *ngIf="errorMessage !== null" class="alert alert-danger" role="alert">
                     {{errorMessage}}
@@ -46,7 +48,7 @@ const usernamePattern = "[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,28}[a-zA-Z0-9]"
                     <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Submit</button>
                 </form>
             </div>
-            
+
         </div>
     `
 })
