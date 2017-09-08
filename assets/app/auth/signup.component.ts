@@ -15,8 +15,9 @@ import {usernamePattern} from "../general/patterns";
                 <div class="alert alert-info">
                     <h5>Usernames must:</h5>
                     <ul>
-                        <li>contain in between 4 and 30 characters</li>
-                        <li>not start with _ or .</li>
+                        <li>contain in between 4 and 22 alphanumeric characters characters</li>
+                        <li>cannot contain any special characters aside from period or underscore</li>
+                        <li>cannot end with period or underscore</li>
                         <li>not have two underscores or dots adjacent to one another</li>
                     </ul>
                 </div>

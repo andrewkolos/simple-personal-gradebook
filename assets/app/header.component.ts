@@ -21,13 +21,15 @@ import {AuthService} from "./auth/auth.service";
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto w-100 justify-content-end">
-                    <span class="d-none d-md-block navbar-text">
-                        {{getUsernameString()}}
-                    </span>
-                    <div class="divider-vertical d-none d-md-block"></div>
-                    <li class="nav-item" *ngIf="authService.isLoggedIn()">
-                        <a class="nav-link" [routerLink]="['/auth/logout']">Logout</a>
-                    </li>
+                    <ng-container *ngIf="authService.isLoggedIn()">
+                        <span class="d-none d-xl-block navbar-text">
+                            {{getUsernameString()}}
+                        </span>
+                        <div class="divider-vertical d-none d-xl-block"></div>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/auth/logout']">Logout</a>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </nav>
