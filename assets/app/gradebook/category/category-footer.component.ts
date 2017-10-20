@@ -14,11 +14,11 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
                        placeholder="New assignment">
             </div>
             <div class="input-group col-7 col-md-6 col-lg-3 pl-0 pl-sm-3">
-                <input (focus)="inputSelected($event)" (blur)="inputBlurred()" class="form-control text-right"
+                <input #earnedInput (focus)="inputSelected($event); elementsFocused = 1" (blur)="inputBlurred()" class="form-control text-right"
                        formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
-                <input (focus)="inputSelected($event)" (keydown.tab)="inputBlurred(nameInput); $event.preventDefault();"
+                <input #worthInput (focus)="inputSelected($event)" (keydown.tab)="inputBlurred(true); $event.preventDefault();"
                        (blur)="inputBlurred()" class="form-control"
                        formControlName="worth" id="worthInput">
                 <button type="button" class="d-block d-md-none btn btn-primary btn-sm"
@@ -31,17 +31,18 @@ export class CategoryFooterComponent {
 
 
     @Output() assignmentCreated = new EventEmitter<Assignment>();
+    @ViewChild('nameInput') nameInput;
+    @ViewChild('earnedInput') earnedInput;
+    @ViewChild('worthInput') worthInput;
 
     assignmentForm: FormGroup;
 
-    elementsFocused: number = 0;
-
     constructor(private fb: FormBuilder) {
         this.createForm();
+        console.log(typeof this.nameInput);
     }
 
     inputSelected($event) {
-        this.elementsFocused += 1;
         $event.target.select();
     }
 
@@ -53,21 +54,14 @@ export class CategoryFooterComponent {
         });
     }
 
-    inputBlurred(refocusTarget?) {
+    inputBlurred(submit?) {
         setTimeout(_ => {
-            this.handleBlur(refocusTarget)
+            if (!this.anySelected() || submit) { // create assignment
+                this.submitData();
+                if (submit)
+                    this.nameInput.nativeElement.focus();
+            }
         }, 0);
-    }
-
-    handleBlur(refocusTarget?) {
-        this.elementsFocused -= 1;
-        console.log(this.assignmentForm.status + " " + this.elementsFocused);
-
-        if (this.elementsFocused == 0) { // create assignment
-            this.submitData();
-            if (refocusTarget)
-                refocusTarget.focus();
-        }
     }
 
     submitData() {
@@ -94,4 +88,13 @@ export class CategoryFooterComponent {
         }
     }
 
+    anySelected() {
+        let isFocused = (el) => {
+            return document.activeElement === el.nativeElement;
+        };
+
+        return [this.earnedInput, this.nameInput, this.worthInput].some((el)=> {
+            return isFocused(el);
+        });
+    }
 }
