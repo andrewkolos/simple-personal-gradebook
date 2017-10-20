@@ -18,16 +18,30 @@ import {Router} from "@angular/router";
                 <span>{{gradebook.categories.length}} categories</span>
                 <span>{{countAssignments()}} assignments</span>
             </p>
-            <button class="btn btn-outline-primary" data-toggle="modal"
-                    [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
-                Change name
-            </button>
-            <button class="btn btn-outline-info" (click)="makeCopy()">
-                Make copy
-            </button>
-            <button class="btn btn-outline-danger" data-toggle="modal"
-                    [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
-            </button>
+            <div class="d-none d-lg-block">
+                <button class="btn btn-outline-primary" data-toggle="modal"
+                        [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
+                    Change name
+                </button>
+                <button class="btn btn-outline-info" (click)="makeCopy()">
+                    Make copy
+                </button>
+                <button class="btn btn-outline-danger" data-toggle="modal"
+                        [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
+                </button>
+            </div>
+            <div class="d-lg-none">
+                <button class="btn-sm btn-outline-primary" data-toggle="modal"
+                        [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
+                    Change name
+                </button>
+                <button class="btn-sm btn-outline-info" (click)="makeCopy()">
+                    Make copy
+                </button>
+                <button class="btn-sm btn-outline-danger" data-toggle="modal"
+                        [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'deleteModal'">Delete
+                </button>
+            </div>
         </div>
 
         <!-- modals -->
@@ -66,7 +80,8 @@ import {Router} from "@angular/router";
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete the <strong>{{gradebook.name}}</strong> gradebook? This cannot be undone.</p>
+                        <p>Are you sure you want to delete the <strong>{{gradebook.name}}</strong> gradebook? This
+                            cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
@@ -78,10 +93,10 @@ import {Router} from "@angular/router";
             </div>
         </div>
     `, styles: [
-        'p span {display: block}'
+        'p span {display: block}',
     ]
 })
-export class GradebookCardComponent implements OnInit{
+export class GradebookCardComponent implements OnInit {
 
     @Input() gradebook: Gradebook;
 
