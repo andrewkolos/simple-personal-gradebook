@@ -14,7 +14,7 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
                        placeholder="New assignment">
             </div>
             <div class="input-group col-7 col-md-6 col-lg-3 pl-0 pl-sm-3">
-                <input #earnedInput (focus)="inputSelected($event); elementsFocused = 1" (blur)="inputBlurred()" class="form-control text-right"
+                <input #earnedInput (focus)="inputSelected($event)" (blur)="inputBlurred()" class="form-control text-right"
                        formControlName="earned"
                        id="earnedInput">
                 <span class="input-group-addon">/</span>
