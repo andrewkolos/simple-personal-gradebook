@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CATEGORY_NAME_PATTERN} from "../general/patterns";
 import {Category} from "./category/category.model";
+import {numericValidator} from "../general/custom-validators";
 
 @Component({
     selector: 'app-gradebook-footer',
@@ -36,7 +37,7 @@ export class GradebookFooterComponent implements OnInit {
     ngOnInit() {
         this.addCategoryForm = new FormGroup({
             name: new FormControl(null, [Validators.required, Validators.pattern(CATEGORY_NAME_PATTERN)]),
-            weight: new FormControl(null, [Validators.required, Validators.pattern("\\d+"), Validators.min(0), Validators.max(100)])
+            weight: new FormControl(null, [Validators.required, numericValidator, Validators.min(0), Validators.max(100)])
         });
         console.log(this.addCategoryForm);
     }

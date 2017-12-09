@@ -4,6 +4,10 @@ export function emptyOrNumericValidator(control: FormControl) {
         return (control.value === "" || !isNaN(parseFloat(control.value))) ? null : {'emptyOrNumeric': {value: control.value}};
 }
 
+export function numericValidator(control: FormControl) {
+    return !isNaN(parseFloat(control.value)) ? null : {'emptyOrNumeric': {value: control.value}};
+}
+
 // Provided by Slava Formin II
 // https://github.com/moebius-mlm/ng-validators/blob/master/src/validators/match-other.validator.ts
 export function matchOtherValidator (otherControlName: string) {
