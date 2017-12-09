@@ -17,7 +17,7 @@ import {Assignment} from "./assignment/assignment.model";
                 <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control"
                        formControlName="weight" id="weightInput">
                 <span class="input-group-addon">%</span>
-                <button class="btn btn-danger btn-sm float-right" type="button" (click)="remove.emit(category)">X
+                <button class="btn btn-danger btn-sm float-right" type="button" (click)="handleRemove()">X
                 </button>
             </div>
             
@@ -55,12 +55,10 @@ export class CategoryComponent implements OnInit {
     }
 
     onAssignmentChange(assignment : Assignment) {
-        if (!assignment) // bandaid hack to prevent double firing
-            return;
         this.submitData();
     }
 
-    submitData() {
+    submitData = () => {
         if (this.categoryForm.status === "VALID" && this.categoryForm.dirty) {
             const formModel = this.categoryForm.value;
 
@@ -70,6 +68,11 @@ export class CategoryComponent implements OnInit {
             this.categoryForm.markAsPristine();
             this.change.emit(this.category);
         }
+    };
+
+    handleRemove() {
+        console.log('my category', this.category);
+        this.remove.emit(this.category);
     }
 
     removeAssignment(assignment: Assignment) {

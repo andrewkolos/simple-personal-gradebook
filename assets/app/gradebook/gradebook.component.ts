@@ -4,6 +4,7 @@ import {GradebookService} from "./gradebook.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Category} from "./category/category.model";
 import {AuthService} from "../auth/auth.service";
+import {isUndefined} from "util";
 
 @Component({
     selector: 'app-gradebook',
@@ -19,7 +20,7 @@ import {AuthService} from "../auth/auth.service";
 
             <div class="col-12 col-md-9 order-2 order-md-1">
                 <app-category *ngFor="let category of gradebook.categories" [category]="category"
-                              (change)="submitData(category)"
+                              (change)="submitData($event)"
                               (remove)="removeCategory($event); submitData()"></app-category>
                 <ng-container *ngIf="gradebook.categories.length === 0">
                     <div class="alert alert-primary">Assignments are placed into categories. Create a category using the
@@ -73,7 +74,7 @@ export class GradebookComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        if (this.gradebook) {
+        if (this.gradebook !== undefined) {
             let catWeightTotal = 0;
             this.gradebook.categories.forEach(c => catWeightTotal += c.weight);
             if (catWeightTotal > 1) {
@@ -88,24 +89,24 @@ export class GradebookComponent implements OnInit, DoCheck {
     constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute, private authService: AuthService, private router: Router) {
     }
 
-    submitData(category: Category) {
-        if (!category) // bandaid hack to prevent double-firing
-            return;
+    submitData(category) {
 
         if (!this.authService.isLoggedIn()) {
             this.router.navigateByUrl('/auth/signin');
             return;
         }
 
-        this._gradebookService.updateGradebook(this.gradebook).subscribe(
-            result => {
-                console.log(result);
-                this.errorMessage = null;
-            },
-            error => {
-                this.errorMessage = "The gradebook could not be saved at this time. Please try refreshing the page.";
-                console.log(error);
-            });
+        setTimeout(() => {
+            this._gradebookService.updateGradebook(this.gradebook).subscribe(
+                result => {
+                    console.log(result);
+                    this.errorMessage = null;
+                },
+                error => {
+                    this.errorMessage = "The gradebook could not be saved at this time. Please try refreshing the page.";
+                    console.log(error);
+                });
+        }, 0);
     }
 
 
