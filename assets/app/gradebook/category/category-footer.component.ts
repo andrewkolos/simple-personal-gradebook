@@ -8,12 +8,12 @@ import {emptyOrNumericValidator} from "../../general/custom-validators";
     selector: 'app-category-footer',
     template: `
         <form class="row" [formGroup]="assignmentForm" novalidate>
-            <div class="col-5 col-md-6 col-lg-9">
+            <div class="col-5 col-md-6 col-lg-8">
                 <input #nameInput (focus)="inputSelected($event)" (blur)="inputBlurred()"
                        class="form-control" formControlName="name" id="nameInput"
                        placeholder="New assignment">
             </div>
-            <div class="input-group col-7 col-md-6 col-lg-3 pl-0 pl-sm-3">
+            <div class="input-group col-7 col-md-6 col-lg-4 pl-0 pl-sm-3">
                 <input #earnedInput (focus)="inputSelected($event)" (blur)="inputBlurred()" class="form-control text-right"
                        formControlName="earned"
                        id="earnedInput">

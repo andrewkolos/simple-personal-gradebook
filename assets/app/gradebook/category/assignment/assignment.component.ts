@@ -8,11 +8,11 @@ import {emptyOrNumericValidator} from "../../../general/custom-validators";
     selector: 'app-assignment',
     template: `
         <form class="row" [formGroup]="assignmentForm" novalidate>
-            <div class="col-5 col-md-6 col-lg-9 ">
+            <div class="col-5 col-md-6 col-lg-8 ">
                 <input (focus)="$event.target.select()" (blur)="submitData()"
                        class="form-control" formControlName="name" id="nameInput">
             </div>
-            <div class="input-group col-7 pl-0 pl-sm-3 col-md-6 col-lg-3">
+            <div class="input-group col-7 pl-0 pl-sm-3 col-md-6 col-lg-4">
                 <input (focus)="$event.target.select()" (blur)="submitData()" class="form-control text-right"
                        formControlName="earned"
                        id="earnedInput">
