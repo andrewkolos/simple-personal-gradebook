@@ -49,8 +49,8 @@ export class AssignmentComponent implements OnInit {
     ngOnInit(): void {
         this.assignmentForm.setValue({
             name: this.assignment.name,
-            earned: (this.assignment.earned ? this.assignment.earned : ""),
-            worth: (this.assignment.worth ? this.assignment.worth : "")
+            earned: (this.assignment.earned !== undefined ? this.assignment.earned : ""),
+            worth: (this.assignment.worth !== undefined ? this.assignment.worth : "")
         });
     }
 

@@ -27,7 +27,7 @@ export class Gradebook {
             let earnedTotal = 0;
             let worthTotal = 0;
             c.assignments.forEach(a => {
-                if (a.earned && a.worth) { // don't factor in the assignment if it has missing grade info
+                if (a.earned !== undefined && a.worth !== undefined) { // don't factor in the assignment if it has missing grade info
                     earnedTotal += a.earned;
                     worthTotal += a.worth
                 }

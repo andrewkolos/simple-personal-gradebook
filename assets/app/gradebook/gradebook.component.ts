@@ -117,7 +117,7 @@ export class GradebookComponent implements OnInit, DoCheck {
 
         if (isNaN(this.gradebook.grade))
             return "N/A";
-        else if (this.gradebook.grade)
+        else if (this.gradebook.grade !== undefined)
             return (this.gradebook.grade * 100).toFixed(2) + "%";
     }
 
