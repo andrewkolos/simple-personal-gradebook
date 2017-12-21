@@ -5,3 +5,19 @@ A MEAN stack web application that aims to help students manage their grades. Stu
 [Try it out](http://swoocebooks.herokuapp.com)
 
 ![Card Page](https://i.imgur.com/dsYjz3W.png)
+
+# Build & Run
+
+Dependencies:
+* Node.js
+* MongoDB
+
+Ensure Mongo listens on port 27017.
+
+```
+mongod
+npm run build
+npm start
+```
+
+See docs directory for some diagrams.
