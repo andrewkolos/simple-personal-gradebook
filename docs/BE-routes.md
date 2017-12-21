@@ -19,7 +19,6 @@ Saves a the new `Gradebook`.
 Deletes the `Gradebook` object with the matching `id`.
 
 ## User
-*/user/*
 
 `POST` */user/*
 Request body: a `User` object.
