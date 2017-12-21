@@ -89,7 +89,7 @@ export class GradebookComponent implements OnInit, DoCheck {
     constructor(private _gradebookService: GradebookService, private _route: ActivatedRoute, private authService: AuthService, private router: Router) {
     }
 
-    submitData(category) {
+    submitData() {
 
         if (!this.authService.isLoggedIn()) {
             this.router.navigateByUrl('/auth/signin');

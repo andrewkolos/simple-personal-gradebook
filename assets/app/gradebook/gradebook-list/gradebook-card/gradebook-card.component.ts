@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Gradebook} from "../../gradebook.model";
 import {GradebookService} from "../../gradebook.service";
 import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
@@ -23,7 +23,7 @@ import {Router} from "@angular/router";
                         [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
                     Change name
                 </button>
-                <button class="btn btn-outline-info" (click)="makeCopy()">
+                <button class="btn btn-outline-info" (click)="makeClone()">
                     Make copy
                 </button>
                 <button class="btn btn-outline-danger" data-toggle="modal"
@@ -35,7 +35,7 @@ import {Router} from "@angular/router";
                         [attr.data-target]="'#'+ uniqueAndIdAttrFriendlyName(gradebook.name) + 'changeNameModal'">
                     Change name
                 </button>
-                <button class="btn-sm btn-outline-info" (click)="makeCopy()">
+                <button class="btn-sm btn-outline-info" (click)="makeClone()">
                     Make copy
                 </button>
                 <button class="btn-sm btn-outline-danger" data-toggle="modal"
@@ -100,12 +100,13 @@ export class GradebookCardComponent implements OnInit {
 
     @Input() gradebook: Gradebook;
 
+    @Output() change = new EventEmitter<Gradebook>();
+    @Output() remove = new EventEmitter<Gradebook>();
+    @Output() clone = new EventEmitter<Gradebook>();
+
     renameGradebookForm: FormGroup;
 
     randomString: string = Math.random().toString(36).substring(8);
-
-    constructor(private _gradebookService: GradebookService, private authService: AuthService, private router: Router) {
-    }
 
     ngOnInit() {
         this.renameGradebookForm = new FormGroup({
@@ -116,12 +117,12 @@ export class GradebookCardComponent implements OnInit {
     updateName() {
         if (this.renameGradebookForm.valid) {
             this.gradebook.name = this.renameGradebookForm.value.name;
-            this._gradebookService.updateGradebook(this.gradebook).subscribe(result => console.log(result));
+            this.change.emit(this.gradebook);
         }
     }
 
     deleteGradebook() {
-        this._gradebookService.deleteGradebook(this.gradebook).subscribe(result => console.log(result));
+        this.remove.emit(this.gradebook);
     }
 
     /**
@@ -138,7 +139,7 @@ export class GradebookCardComponent implements OnInit {
 
     getGrade(): string {
         if (isNaN(this.gradebook.grade))
-            return "N/A"
+            return "N/A";
         else
             return (this.gradebook.grade * 100).toFixed(2) + "%";
     }
@@ -149,8 +150,7 @@ export class GradebookCardComponent implements OnInit {
         return count;
     }
 
-    makeCopy() {
-        let copy: Gradebook = JSON.parse(JSON.stringify(this.gradebook));
-        this._gradebookService.addGradebook(copy).subscribe();
+    makeClone() {
+        this.clone.emit(this.gradebook);
     }
 }

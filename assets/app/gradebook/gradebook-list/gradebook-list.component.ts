@@ -13,7 +13,8 @@ import {tokenNotExpired} from "angular2-jwt";
         <ng-container *ngIf="isLoggedIn()">
             <div class="card-columns">
                 <app-gradebook-card class="card" *ngFor="let gradebook of gradebooks"
-                                    [gradebook]="gradebook"></app-gradebook-card>
+                                    [gradebook]="gradebook" (change)="onUpdateGradebook($event)" 
+                                    (remove)="onDeleteGradebook($event)" (clone)="onCloneGradebook($event)"></app-gradebook-card>
             </div>
             <hr class="mt-4">
             <h3>Add new gradebook</h3>
@@ -60,6 +61,14 @@ export class GradebookListComponent implements OnInit {
         );
     }
 
+    onDeleteGradebook(gradebook: Gradebook) {
+        this._gradebookService.deleteGradebook(gradebook).subscribe(result => console.log(result));
+    }
+
+    onUpdateGradebook(gradebook: Gradebook) {
+        this._gradebookService.updateGradebook(gradebook).subscribe(result => console.log(result));
+    }
+
     onAddGradebook() {
         this._gradebookService.addGradebook(new Gradebook(this.addGradebookForm.value.name, [])).subscribe(
             res => console.log(res),
@@ -70,6 +79,11 @@ export class GradebookListComponent implements OnInit {
             }
         );
         this.addGradebookForm.reset();
+    }
+
+    onCloneGradebook(gradebook: Gradebook) {
+        let copy: Gradebook = JSON.parse(JSON.stringify(gradebook));
+        this._gradebookService.addGradebook(copy).subscribe(result => console.log(result));
     }
 
     isLoggedIn() {
