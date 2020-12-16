@@ -4,7 +4,7 @@ A MEAN stack web application that aims to help students manage their grades. Stu
 
 Not secure -- created for learning purposes and personal use.
 
-[Try it out](http://swoocebooks.herokuapp.com)
+[Demo](http://swoocebooks.herokuapp.com). Use a unique password.
 
 ![Card Page](https://i.imgur.com/dsYjz3W.png)
 
